@@ -45,6 +45,8 @@ configure_file (
 # Output libname matches target name, with the usual extensions on your system
 add_library(lib STATIC src/lib.cpp include/lib/lib.hpp)
 target_include_directories(lib PUBLIC include)
+target_compile_features(lib PUBLIC cxx_std_11) # or cxx_std_14, or cxx_std_17, etc.
+set_target_properties(lib PROPERTIES CXX_EXTENSIONS OFF) # disable this line to get -std=g++11 etc.
 
 # Link each target with other targets or add options, etc.
 
