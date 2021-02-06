@@ -1,3 +1,6 @@
+# Note: migrating to this template: 
+# https://gitlab.com/CLIUtils/modern-cmake/-/blob/master/examples/extended-project/CMakeLists.txt
+
 cmake_minimum_required(VERSION 3.8)
 
 project(ProjectName
