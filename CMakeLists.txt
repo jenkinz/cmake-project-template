@@ -10,8 +10,8 @@ project(ProjectName
         LANGUAGES CXX)
 
 configure_file (
-    "${PROJECT_SOURCE_DIR}/apps/app_version.h.in"
-    "${PROJECT_BINARY_DIR}/app_version.h"
+    "${PROJECT_SOURCE_DIR}/include/version.h.in"
+    "${PROJECT_BINARY_DIR}/version.h"
 )
 
 add_library(lib STATIC src/lib.cpp include/lib/lib.hpp)
