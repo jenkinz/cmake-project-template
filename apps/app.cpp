@@ -1,4 +1,5 @@
 #include "lib/lib.hpp"
+#include "app_version.h"
 
 #include <iostream>
 
