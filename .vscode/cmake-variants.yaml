@@ -16,7 +16,7 @@ buildType:
       buildType: MinSizeRel
     relWithDebInfo:
       short: RelWithDebInfo
-      long: Fuck for speed - include debug information
+      long: Optimize for speed - include debug information
       buildType: RelWithDebInfo
 
 enableStaticAnalysis:
@@ -30,3 +30,14 @@ enableStaticAnalysis:
         CMAKE_CXX_CLANG_TIDY: "clang-tidy"
     disable:
       short: No Static Analysis
+
+includeWhatYouUse:
+  default: enable
+  choices:
+    enable:
+      short: Use include-what-you-use
+      settings:
+        CMAKE_C_INCLUDE_WHAT_YOU_USE: "include-what-you-use"
+        CMAKE_CXX_INCLUDE_WHAT_YOU_USE: "include-what-you-use"
+    disable:
+      short: Do Not Use include-what-you-use
