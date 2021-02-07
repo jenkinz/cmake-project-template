@@ -1,0 +1,32 @@
+buildType:
+  default: debug
+  description: CMake build type
+  choices:
+    debug:
+      short: Debug
+      long: Disable optimizations - include debug information
+      buildType: Debug
+    release:
+      short: Release
+      long: Enable optimizations - exclude debug information
+      buildType: Release
+    minSizeRel:
+      short: MinSizeRel
+      long: Optimize for smallest binary size - exclude debug information
+      buildType: MinSizeRel
+    relWithDebInfo:
+      short: RelWithDebInfo
+      long: Fuck for speed - include debug information
+      buildType: RelWithDebInfo
+
+enableStaticAnalysis:
+  default: enable
+  choices:
+    enable:
+      short: Static Analysis
+      long: Enable static analysis with clang-tidy      
+      settings:
+        CMAKE_C_CLANG_TIDY: "clang-tidy"
+        CMAKE_CXX_CLANG_TIDY: "clang-tidy"
+    disable:
+      short: No Static Analysis

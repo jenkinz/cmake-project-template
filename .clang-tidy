@@ -1,0 +1,1 @@
+Checks: "-*,clang-analyzer-*,-clang-analyzer-cplusplus*,concurrency-*,cppcoreguidelines-*,google-*,misc-*,modernize-*,performance-*,portability-*,readability-"

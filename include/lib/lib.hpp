@@ -2,4 +2,4 @@
 
 #include <string>
 
-std::string simple_lib_function();
+auto simple_lib_function() -> std::string;
