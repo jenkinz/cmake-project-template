@@ -1,6 +1,38 @@
 # ProjectName
 
-Description...
+This is a template project for a C/C++ library and/or application utilizing
+modern CMake best practices. It includes support for the following:
+
+- CMake build configurations
+- Built-in static analysis with `clang-tidy`
+- VS Code IDE support
+
+This description should be modified when creating a new project based on this
+template.
+
+## Tool Prerequisites
+
+The following tools (in addition to the desired compilation toolchain) should be
+installed on the host machine prior to building:
+
+- [CMake](https://cmake.org/) (version 3.8 or later)
+- [`clang-tidy`](https://clang.llvm.org/extra/clang-tidy/)
+- [`include-what-you-use`](https://include-what-you-use.org/)
+
+On macOS, assuming you have [Homebrew](https://brew.sh) installed, this can be
+achieved by running the following:
+
+```
+$ brew install cmake llvm include-what-you-use
+```
+
+You must then symlink the extra clang tools from the `llvm` installation:
+
+```
+$ ln -s "$(brew --prefix llvm)/bin/clang-format" "/usr/local/bin/clang-format"
+$ ln -s "$(brew --prefix llvm)/bin/clang-tidy" "/usr/local/bin/clang-tidy"
+$ ln -s "$(brew --prefix llvm)/bin/clang-apply-replacements" "/usr/local/bin/clang-apply-replacements"
+```
 
 
 ## Visual Studio Code IDE Support
