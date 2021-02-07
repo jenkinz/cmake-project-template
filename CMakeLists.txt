@@ -14,7 +14,7 @@ project(ProjectName
         VERSION 0.1.0.0 # Major.minor.patch.tweak (see version.h.in)
         DESCRIPTION "CMake project template"
         HOMEPAGE_URL "https://github.com/jenkinz/xxx.git"
-        LANGUAGES C CXX)
+        LANGUAGES CXX)
 
 # Auto-generate a version header (this requires you set VERSION in the project()
 # above)
@@ -50,13 +50,15 @@ endif()
 add_library(lib STATIC src/lib.cpp include/lib/lib.hpp)
 target_include_directories(lib PUBLIC include)
 target_compile_features(lib PUBLIC cxx_std_11) # or cxx_std_14, or cxx_std_17
-# disable this line to get -std=g++11 etc.:
+# disable this line to get -std=g++11 etc. (also disable for INTERFACE targets)
 set_target_properties(lib PROPERTIES CXX_EXTENSIONS OFF)
 
 # Link each target with other targets or add options, etc.
 
 # Adding something we can run - Output name matches target name
 add_executable(app apps/app.cpp)
+target_compile_features(app PUBLIC cxx_std_11)
+set_target_properties(app PROPERTIES CXX_EXTENSIONS OFF)
 target_include_directories(app PUBLIC ${PROJECT_BINARY_DIR})
 # Make sure you link your targets with this command. It can also link libraries
 # and even flags, so linking a target that does not exist will not give a
