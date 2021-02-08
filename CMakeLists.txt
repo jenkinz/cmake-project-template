@@ -14,7 +14,7 @@ project(ProjectName
         VERSION 0.1.0.0 # Major.minor.patch.tweak (see version.h.in)
         DESCRIPTION "CMake project template"
         HOMEPAGE_URL "https://github.com/jenkinz/xxx.git"
-        LANGUAGES CXX)
+        LANGUAGES C CXX)
 
 # Auto-generate a version header (this requires you set VERSION in the project()
 # above)
@@ -77,6 +77,9 @@ target_include_directories(app PUBLIC ${PROJECT_BINARY_DIR})
 # configure-time error.
 target_link_libraries(app PRIVATE lib)
 
-# Testing if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME) include(CTest) endif()
+# Testing
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+    include(CTest)
+endif()
 # if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
-# add_subdirectory(tests) endif()
+#     add_subdirectory(tests) endif()
