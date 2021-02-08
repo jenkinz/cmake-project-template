@@ -10,11 +10,11 @@
 ///
 /// @param[in] param a parameter that will be included in the returned string
 ///
-/// @section desc Description
-/// This is a more detailed description for enhanced explanation of the function
-/// and its properties.
+/// @section desc Description This is an optional, more detailed description for
+/// an enhanced explanation of the function and its properties.
 auto simple_lib_function(std::string const & param) -> std::string {
-    // possible test could be:
-    // assert(simple_lib_function() == "Compiled in library")
+    // possible unit tests could be: assert(simple_lib_function() == "Compiled
+    // in library, param = Default") assert(simple_lib_function("Test") ==
+    // "Compiled in library, param = Test")
     return "Compiled in library, param = " + param;
 }
