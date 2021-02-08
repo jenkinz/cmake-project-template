@@ -7,23 +7,27 @@ modern CMake best practices. It includes support for the following:
 - Built-in static analysis with `clang-tidy`
 - VS Code IDE support
 
+The CMake project configuration works best utilizing the native host environment
+toolchain (i.e., not cross-compiling).
+
 This description should be modified when creating a new project based on this
 template.
 
 ## Tool Prerequisites
 
-The following tools (in addition to the desired compilation toolchain) should be
-installed on the host machine prior to building:
+The following tools should be installed on the host machine prior to building:
 
-- [CMake](https://cmake.org/) (version 3.8 or later)
+- [CMake](https://cmake.org/) (version 3.8 or later is required)
+- [`ccache`](https://ccache.dev/)
 - [`clang-tidy`](https://clang.llvm.org/extra/clang-tidy/)
+- [`cpplint`](https://github.com/cpplint/cpplint)
 - [`include-what-you-use`](https://include-what-you-use.org/)
 
 On macOS, assuming you have [Homebrew](https://brew.sh) installed, this can be
 achieved by running the following:
 
 ```
-$ brew install cmake llvm include-what-you-use
+$ brew install cmake ccache llvm include-what-you-use
 ```
 
 You must then symlink the extra clang tools from the `llvm` installation:

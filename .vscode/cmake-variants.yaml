@@ -19,25 +19,27 @@ buildType:
       long: Optimize for speed - include debug information
       buildType: RelWithDebInfo
 
-enableStaticAnalysis:
+enableStaticAnalysisAndStyleChecks:
   default: enable
   choices:
     enable:
-      short: Static Analysis
-      long: Enable static analysis with clang-tidy      
+      short: Static Analysis and Style Checks
+      long: Enable static analysis and style checks using clang-tidy and cpplint
       settings:
         CMAKE_C_CLANG_TIDY: "clang-tidy"
         CMAKE_CXX_CLANG_TIDY: "clang-tidy"
+        CMAKE_C_CPPLINT: "cpplint"
+        CMAKE_CXX_CPPLINT: "cpplint"
     disable:
-      short: No Static Analysis
+      short: No Static Analysis or Style Checks
 
 includeWhatYouUse:
   default: enable
   choices:
     enable:
-      short: Use include-what-you-use
+      short: include-what-you-use
       settings:
         CMAKE_C_INCLUDE_WHAT_YOU_USE: "include-what-you-use"
         CMAKE_CXX_INCLUDE_WHAT_YOU_USE: "include-what-you-use"
     disable:
-      short: Do Not Use include-what-you-use
+      short: No include-what-you-use

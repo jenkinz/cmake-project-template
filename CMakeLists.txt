@@ -20,7 +20,7 @@ project(ProjectName
 # above)
 configure_file (
     "${PROJECT_SOURCE_DIR}/include/version.h.in"
-    "${PROJECT_BINARY_DIR}/version.h"
+    "${PROJECT_BINARY_DIR}/version/version.h"
 )
 
 # If you set any CMAKE_ variables, that can go here. (But usually don't do this,
@@ -44,8 +44,15 @@ if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
     endif()
 endif()
 # if(NOT EXISTS "${PROJECT_SOURCE_DIR}/extern/repo/CMakeLists.txt")
-#     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
-# endif()
+#     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was
+#     turned off or failed. Please update submodules and try again.") endif()
+
+## CCache - speed up recompilation by caching previous compilations
+find_program(CCACHE_PROGRAM ccache)
+if(CCACHE_PROGRAM)
+    set(CMAKE_C_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+endif()
 
 # You should usually split this into folders, but this is a simple example
 
@@ -69,3 +76,7 @@ target_include_directories(app PUBLIC ${PROJECT_BINARY_DIR})
 # and even flags, so linking a target that does not exist will not give a
 # configure-time error.
 target_link_libraries(app PRIVATE lib)
+
+# Testing if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME) include(CTest) endif()
+# if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
+# add_subdirectory(tests) endif()

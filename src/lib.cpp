@@ -1,6 +1,20 @@
+/// @file lib.hpp
+/// @brief Lib implementation.
+///
+/// Copyright 2021 MyCo Inc.
+/// ----------------------------------------------------------------------------
 #include <iosfwd>  // for string
 #include <string>  // for basic_string
 
-auto simple_lib_function() -> std::string {
-    return "Compiled in library";
+/// @brief Return a string.
+///
+/// @param[in] param a parameter that will be included in the returned string
+///
+/// @section desc Description
+/// This is a more detailed description for enhanced explanation of the function
+/// and its properties.
+auto simple_lib_function(std::string const & param) -> std::string {
+    // possible test could be:
+    // assert(simple_lib_function() == "Compiled in library")
+    return "Compiled in library, param = " + param;
 }
