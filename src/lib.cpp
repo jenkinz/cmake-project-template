@@ -1,4 +1,4 @@
-/// @file lib.hpp
+/// @file lib.cpp
 /// @brief Lib implementation.
 ///
 /// Copyright 2021 MyCo Inc.
