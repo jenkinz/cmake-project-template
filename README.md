@@ -38,9 +38,9 @@ Assuming you have [Homebrew](https://brew.sh) installed:
 
 You must then symlink the extra clang tools from the `llvm` installation:
 
-    $ ln -s "$(brew --prefix llvm)/bin/clang-format" "/usr/local/bin/clang-format"
-    $ ln -s "$(brew --prefix llvm)/bin/clang-tidy" "/usr/local/bin/clang-tidy"
-    $ ln -s "$(brew --prefix llvm)/bin/clang-apply-replacements" "/usr/local/bin/clang-apply-replacements"
+    $ ln -s "$(brew --prefix llvm)/bin/clang-format" "$(brew --prefix)/bin/clang-format"
+    $ ln -s "$(brew --prefix llvm)/bin/clang-tidy" "$(brew --prefix)/bin/clang-tidy"
+    $ ln -s "$(brew --prefix llvm)/bin/clang-apply-replacements" "$(brew --prefix)/bin/clang-apply-replacements"
 
 ### TODO add Debian/Ubuntu Linux Host (incl. Windows WSL Debian/Ubuntu)
 
