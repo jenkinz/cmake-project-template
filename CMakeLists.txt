@@ -80,9 +80,13 @@ target_include_directories(app PUBLIC ${PROJECT_BINARY_DIR})
 # configure-time error.
 target_link_libraries(app PRIVATE lib)
 
-# Testing
+# Tests
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     include(CTest)
 endif()
-# if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
-#     add_subdirectory(tests) endif()
+option(PACKAGE_TESTS "Build the tests" ON)
+if(PACKAGE_TESTS)
+    enable_testing()
+    include(GoogleTest)
+    add_subdirectory(tests)
+endif()

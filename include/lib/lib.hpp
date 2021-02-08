@@ -5,6 +5,6 @@
 /// ----------------------------------------------------------------------------
 #pragma once
 
-#include <string>
+#include <iosfwd> // for string
 
 auto simple_lib_function(std::string const & param = "Default") -> std::string;
