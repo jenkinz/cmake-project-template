@@ -10,7 +10,9 @@ modern CMake best practices. It includes support for the following:
 - VS Code IDE support
 
 The CMake project configuration works best utilizing the native host environment
-toolchain (i.e., not cross-compiling).
+toolchain (i.e., not cross-compiling). Instead of cross-compiling, it's
+recommended to use the remote-ssh capabilities of VS Code (or your IDE of
+choice) to build and debug on the target directly.
 
 This description should be modified when creating a new project based on this
 template.
