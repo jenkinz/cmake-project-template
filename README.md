@@ -5,6 +5,8 @@ modern CMake best practices. It includes support for the following:
 
 - CMake build configurations
 - Built-in static analysis with `clang-tidy`
+- Style checking with `cpplint` in accordance with the [Google C++ Style
+  Guide](https://google.github.io/styleguide/cppguide.html)
 - VS Code IDE support
 
 The CMake project configuration works best utilizing the native host environment
@@ -47,7 +49,8 @@ using [Microsoft VS Code](https://code.visualstudio.com/).
 At a minimum, you should install the following VS Code Extensions:
 
 - [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
-- [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
+- [CMake
+  Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
 - [CMake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake)
 
 ### Configure
