@@ -37,9 +37,11 @@ includeWhatYouUse:
   default: enable
   choices:
     enable:
-      short: include-what-you-use
+      short: IWYU
+      long: Enable include-what-you-use analysis
       settings:
         CMAKE_C_INCLUDE_WHAT_YOU_USE: "include-what-you-use"
         CMAKE_CXX_INCLUDE_WHAT_YOU_USE: "include-what-you-use"
     disable:
-      short: No include-what-you-use
+      short: No IWYU
+      long: Disable include-what-you-use analysis
