@@ -5,7 +5,7 @@
 # Almost all CMake files should start with this You should always specify a
 # range with the newest and oldest tested versions of CMake. This will ensure
 # you pick up the best policies.
-cmake_minimum_required(VERSION 3.8...3.19)
+cmake_minimum_required(VERSION 3.10...3.19)
 
 # This is your project statement. You should always list languages; Listing the
 # version is nice here since it sets lots of useful variables (e.g. those used
@@ -13,7 +13,6 @@ cmake_minimum_required(VERSION 3.8...3.19)
 project(ProjectName
         VERSION 0.1.0.0 # Major.minor.patch.tweak (see version.h.in)
         DESCRIPTION "CMake project template"
-        HOMEPAGE_URL "https://github.com/jenkinz/xxx.git"
         LANGUAGES C CXX)
 
 # Auto-generate a version header (this requires you set VERSION in the project()
