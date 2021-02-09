@@ -62,12 +62,14 @@ To use the recommended approach for configuration (that is, out-of-source builds
 within an unversioned `build` directory), run the following from the project
 top-level:
 
-    $ cmake -S . -B build
+    $ mkdir build
+    $ cd build
+    $ cmake ..
 
 `ninja` may be used instead of `make` by using the following `cmake` command
 when configuring:
 
-    $ cmake -GNinja -S . -B build
+    $ cmake -GNinja ..
 
 ### Configuration Options
 
@@ -84,24 +86,21 @@ each option with `-D`):
 
 ## Build
 
-To build, run the following from the project top-level (assuming your build
-directory is called `build` as set in the Configure step):
+To build, run the following from the `build` directory:
 
-    cmake --build build
+    cmake --build .
 
 ## Test
 
-To run tests, run the following from the build directory (assuming your build
-directory is called `build` as set in the Configure step):
+To run tests, run the following from the `build` directory:
 
     ctest
 
 ## Install
 
-To install, run the following from the project top-level (assuming your build
-directory is called `build` as set in the Configure step):
+To install, run the following from the `build` directory:
 
-    cmake --install build
+    cmake --install .
 
 
 ## Customizing `clang-tidy` Checks
