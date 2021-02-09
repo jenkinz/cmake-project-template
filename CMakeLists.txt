@@ -30,6 +30,7 @@ configure_file (
 
 # Command to auto-update all git submodules: from
 # https://cliutils.gitlab.io/modern-cmake/chapters/basics/programs.html
+find_package(Git)
 if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
     # Update submodules as needed
     option(GIT_SUBMODULE "Check submodules during build" ON)
