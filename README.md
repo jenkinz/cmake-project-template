@@ -7,6 +7,7 @@ modern CMake best practices. It includes support for the following:
 - Built-in static analysis with `clang-tidy`
 - Style checking with `cpplint` in accordance with the [Google C++ Style
   Guide](https://google.github.io/styleguide/cppguide.html)
+- Analysis of `#include` statements by `include-what-you-use`
 - VS Code IDE support
 
 The CMake project configuration works best utilizing the native host environment
