@@ -7,4 +7,4 @@
 
 #include <iosfwd> // for string
 
-auto SimpleLibFunction(std::string const & param = "Default") -> std::string;
+std::string SimpleLibFunction(std::string const & param = "Default");

@@ -8,7 +8,7 @@
 #include "lib/lib.hpp"
 #include "version/version.h"
 
-auto main() -> int {
+int main() {
     std::cout << "Version " << VERSION << std::endl;
     std::cout << "Simple example C++ compiled correctly and ran" << std::endl;
     std::cout << SimpleLibFunction("Testing") << std::endl;
