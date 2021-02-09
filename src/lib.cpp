@@ -13,6 +13,6 @@
 ///
 /// @section desc Description This is an optional, more detailed description for
 /// an enhanced explanation of the function and its properties.
-auto simple_lib_function(std::string const & param) -> std::string {
+auto SimpleLibFunction(std::string const & param) -> std::string {
     return "Compiled in library, param = " + param;
 }

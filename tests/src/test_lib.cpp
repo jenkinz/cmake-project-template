@@ -10,24 +10,24 @@
 #include "lib/lib.hpp"              // for simple_lib_function
 
 TEST(LibTest, DefaultInputEqual) {
-    EXPECT_EQ(simple_lib_function(), "Compiled in library, param = Default");
+    EXPECT_EQ(SimpleLibFunction(), "Compiled in library, param = Default");
 }
 
 TEST(LibTest, DefaultInputNotEqual) {
-    EXPECT_NE(simple_lib_function(), "Compiled in library, param = D");
+    EXPECT_NE(SimpleLibFunction(), "Compiled in library, param = D");
 }
 
 TEST(LibTest, CustomInputEqual) {
-    EXPECT_EQ(simple_lib_function("Test"), "Compiled in library, param = Test");
-    EXPECT_EQ(simple_lib_function("3"), "Compiled in library, param = 3");
-    EXPECT_EQ(simple_lib_function("…∑ª©æç≤≈"), 
+    EXPECT_EQ(SimpleLibFunction("Test"), "Compiled in library, param = Test");
+    EXPECT_EQ(SimpleLibFunction("3"), "Compiled in library, param = 3");
+    EXPECT_EQ(SimpleLibFunction("…∑ª©æç≤≈"), 
               "Compiled in library, param = …∑ª©æç≤≈");
-    EXPECT_EQ(simple_lib_function(""), "Compiled in library, param = ");
+    EXPECT_EQ(SimpleLibFunction(""), "Compiled in library, param = ");
 }
 
 TEST(LibTest, CustomInputNotEqual) {
-    EXPECT_NE(simple_lib_function("Test"), "tseT");
-    EXPECT_NE(simple_lib_function("1234"), "5678");
-    EXPECT_NE(simple_lib_function("…∑ª©æç≤≈"), "…∑ª©æç≤");
-    EXPECT_NE(simple_lib_function(""), "Compiled in library, param = d");
+    EXPECT_NE(SimpleLibFunction("Test"), "tseT");
+    EXPECT_NE(SimpleLibFunction("1234"), "5678");
+    EXPECT_NE(SimpleLibFunction("…∑ª©æç≤≈"), "…∑ª©æç≤");
+    EXPECT_NE(SimpleLibFunction(""), "Compiled in library, param = d");
 }
