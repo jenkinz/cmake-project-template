@@ -16,6 +16,19 @@
             "cwd": "${workspaceFolder}",
             "environment": [],
             "MIMode": "lldb"
+        },
+        {
+            // Debug with CMake Tools: see https://vector-of-bool.github.io/docs/vscode-cmake-tools/debugging.html
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            // Resolved by CMake Tools:
+            "program": "${command:cmake.launchTargetPath}",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "MIMode": "gdb"
         }
     ]
 }
