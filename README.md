@@ -8,6 +8,8 @@ modern CMake best practices. It includes support for the following:
 - Style checking with `cpplint` in accordance with the [Google C++ Style
   Guide](https://google.github.io/styleguide/cppguide.html)
 - Analysis of `#include` statements by `include-what-you-use`
+- Testing using CMake's `ctest` and the
+  [`googletest`](https://github.com/google/googletest) framework
 - VS Code IDE support
 
 The CMake project configuration works best utilizing the native host environment
@@ -85,6 +87,13 @@ directory is called `build` as set in the Configure step):
 
     cmake --build build
 
+## Test
+
+To run tests, run the following from the build directory (assuming your build
+directory is called `build` as set in the Configure step):
+
+    ctest
+
 ## Install
 
 To install, run the following from the project top-level (assuming your build
@@ -145,6 +154,10 @@ Launch configuration.
 
 Or, open Command (Command+Shift+P), type CMake, select `CMake: Debug` (make sure
 you first set a breakpoint somewhere, like `main()`)
+
+### Run Tests
+
+Open Command (Command+Shift+P), type CMake, select `CMake: Run Tests`
 
 ### Other Commands
 
