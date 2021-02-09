@@ -19,8 +19,8 @@ project(ProjectName
 # Auto-generate a version header (this requires you set VERSION in the project()
 # above)
 configure_file (
-    "${PROJECT_SOURCE_DIR}/include/version.h.in"
-    "${PROJECT_BINARY_DIR}/version/version.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/version.h.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/version/version.h"
 )
 
 # If you set any CMAKE_ variables, that can go here. (But usually don't do this,
@@ -31,7 +31,7 @@ configure_file (
 # Command to auto-update all git submodules: from
 # https://cliutils.gitlab.io/modern-cmake/chapters/basics/programs.html
 find_package(Git)
-if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
     # Update submodules as needed
     option(GIT_SUBMODULE "Check submodules during build" ON)
     if(GIT_SUBMODULE)
@@ -47,9 +47,6 @@ if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
         endif()
     endif()
 endif()
-# if(NOT EXISTS "${PROJECT_SOURCE_DIR}/extern/repo/CMakeLists.txt")
-#     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was
-#     turned off or failed. Please update submodules and try again.") endif()
 
 ## CCache - speed up recompilation by caching previous compilations
 find_program(CCACHE_PROGRAM ccache)
