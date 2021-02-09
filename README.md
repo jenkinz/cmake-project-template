@@ -93,6 +93,16 @@ directory is called `build` as set in the Configure step):
     cmake --install build
 
 
+## Customizing `clang-tidy` Checks
+
+The top-level file `.clang-tidy` configures the rules that are checked or
+skipped by `clang-tidy`. A default set of rules is provided. Customize them by
+reviewing the available [Clang-Tidy
+Checks](https://clang.llvm.org/extra/clang-tidy/checks/list.html) and setting
+the appropriate options in the `.clang-tidy` file following the
+[instructions](https://clang.llvm.org/extra/clang-tidy/). 
+
+
 ## Visual Studio Code IDE Support
 
 Included in this project are configurations for editing, building and debugging
