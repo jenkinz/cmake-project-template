@@ -70,5 +70,5 @@ endmacro()
 # Define tests here.
 
 package_add_test_with_libraries(test_lib
-                                src/test_lib.cpp
+                                test_lib.cpp
                                 lib "")
