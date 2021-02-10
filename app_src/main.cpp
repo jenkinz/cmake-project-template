@@ -5,7 +5,7 @@
 /// ----------------------------------------------------------------------------
 #include <iostream>
 
-#include "lib/lib.hpp"
+#include "mylib/mylib.hpp"
 #include "version/version.h"
 
 int main() {

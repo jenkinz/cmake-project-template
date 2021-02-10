@@ -7,8 +7,8 @@
 #include <gtest/gtest-test-part.h>  // for TestPartResult, SuiteApiResolver
 #include <string>                   // for operator+
 #include "gtest/gtest_pred_impl.h"  // for Test, EXPECT_EQ, EXPECT_NE, TEST
-#include "lib/lib.hpp"              // for SimpleLibFunction
-#include "test_lib.hpp"             // for LibTest test fixture
+#include "mylib/mylib.hpp"              // for SimpleLibFunction
+#include "test_mylib.hpp"             // for LibTest test fixture
 
 std::string const LibTest::kExpectedStringPrefix_ =
     "Compiled in library, param = ";

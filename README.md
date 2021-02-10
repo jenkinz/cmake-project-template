@@ -20,6 +20,28 @@ choice) to build and debug on the target directly.
 This description should be modified when creating a new project based on this
 template.
 
+## Standards
+
+- Library source code implementation files are placed in `src/`
+- Library header interface files are placed in `include/<library-name>/`
+  - In `#include` directives, always specify library name (e.g. 
+    `#include "library-name/header.h"`)
+- Application source code and headers are placed in `app_src` (delete this
+  directory when project is library-only)
+- Source code file names are all lowercase, separated by underscores (e.g.
+  `my_file.h` or `my_impl.c`)
+  - C++ implementation files use extension `.cpp`
+  - C++-only header files use extension `.hpp`
+  - C implementation files use extension `.c`
+  - C header files, and header files intended to be shared between C++ and C,
+    use extension `.h`
+- Target names are all lowercase; whenever possible, keep names to one word
+  (e.g. `mylib` or `myapp`), but if separation is needed, use dashes (`-`)
+  (e.g. `my-lib` or `my-app`)
+  - Folder subdirectories for library includes should match the target name
+    (e.g. `include/libname/` or `include/my-lib/`)
+  
+
 ## Tool Prerequisites
 
 The following tools should be installed on the host machine prior to building:
@@ -53,7 +75,8 @@ You must then symlink the extra clang tools from the `llvm` installation:
 
 ### Alpine Linux Host (incl. Windows WSL Alpine)
 
-Note: need to become root to run the installation commands
+Note: need to become root to run the installation commands. Also, IWYU is not
+immediately available on Alpine.
 
     $ su -
     # apk update
@@ -161,6 +184,9 @@ select one
 Open Command (Command+Shift+P), type CMake, select `CMake: Select Variant` and
 select your desired build variant (Recommended: select `Debug + Static Analysis
 and Style Checks + IWYU`)
+
+Note on Alpine Linux: IWYU is not available, so be sure to select one of the
+variants that says `No IWYU`.
 
 ### Configure
 

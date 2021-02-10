@@ -29,8 +29,8 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT) # can be overridden on cmd line
         CACHE PATH "Default installation prefix" FORCE)
 endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 set(INCLUDE_DEST "include")
-set(LIB_INCLUDE_DEST "${INCLUDE_DEST}/lib")
-set(MAIN_LIB_DEST "lib/lib")
+set(LIB_INCLUDE_DEST "${INCLUDE_DEST}/mylib")
+set(MAIN_LIB_DEST "lib/mylib")
 set(LIB_DEST "${MAIN_LIB_DEST}")
 
 # Find packages, other config-time commands can go here.
@@ -67,25 +67,25 @@ endif()
 # Adding a library target Including header files here helps IDEs but is not
 # required. Output libname matches target name, with the usual extensions on
 # your system
-add_library(lib STATIC src/lib.cpp include/lib/lib.hpp)
-target_include_directories(lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-                                      $<INSTALL_INTERFACE:${INCLUDE_DEST}>)
-target_compile_features(lib PUBLIC cxx_std_11) # or cxx_std_14, or cxx_std_17
+add_library(mylib STATIC src/mylib.cpp include/mylib/mylib.hpp)
+target_include_directories(mylib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+                                        $<INSTALL_INTERFACE:${INCLUDE_DEST}>)
+target_compile_features(mylib PUBLIC cxx_std_11) # or cxx_std_14, or cxx_std_17
 # disable this line to get -std=g++11 etc. (also disable for INTERFACE targets)
-set_target_properties(lib PROPERTIES CXX_EXTENSIONS OFF)
+set_target_properties(mylib PROPERTIES CXX_EXTENSIONS OFF)
 
 # Link each target with other targets or add options, etc.
 
 # Adding something we can run - Output name matches target name
-add_executable(app apps/app.cpp)
+add_executable(app app_src/main.cpp)
 target_compile_features(app PUBLIC cxx_std_11)
 set_target_properties(app PROPERTIES CXX_EXTENSIONS OFF)
 target_include_directories(app PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-                                      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/apps)
+                                      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/app_src)
 # Make sure you link your targets with this command. It can also link libraries
 # and even flags, so linking a target that does not exist will not give a
 # configure-time error.
-target_link_libraries(app PRIVATE lib)
+target_link_libraries(app PRIVATE mylib)
 
 # Tests
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
@@ -100,10 +100,10 @@ endif()
 
 # Installation
 # set(CMAKE_INSTALL_MESSAGE NEVER)  # suppress verbose install messages
-install(TARGETS lib EXPORT lib DESTINATION ${LIB_DEST})
+install(TARGETS mylib EXPORT lib DESTINATION ${LIB_DEST})
 install(FILES cmake/lib-config.cmake DESTINATION ${MAIN_LIB_DEST})
 install(EXPORT lib DESTINATION ${LIB_DEST})
-install(DIRECTORY include/lib DESTINATION ${LIB_INCLUDE_DEST} FILES_MATCHING PATTERN "*.h*")
+install(DIRECTORY include/mylib DESTINATION ${LIB_INCLUDE_DEST} FILES_MATCHING PATTERN "*.h*")
 install(DIRECTORY ${CMAKE_BINARY_DIR}/version DESTINATION ${INCLUDE_DEST}/version FILES_MATCHING PATTERN "*.h*")
 install(TARGETS app)
 

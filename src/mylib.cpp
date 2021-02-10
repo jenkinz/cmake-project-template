@@ -5,7 +5,7 @@
 /// ----------------------------------------------------------------------------
 #include <iosfwd>  // for string
 #include <string>  // for operator+, basic_string
-#include "lib/lib.hpp"
+#include "mylib/mylib.hpp"
 
 /// @brief Return a string.
 ///

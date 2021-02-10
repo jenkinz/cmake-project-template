@@ -69,6 +69,6 @@ endmacro()
 
 # Define tests here.
 
-package_add_test_with_libraries(test_lib
-                                test_lib.cpp
-                                lib "")
+package_add_test_with_libraries(test-mylib
+                                test_mylib.cpp
+                                mylib "")
