@@ -18,8 +18,8 @@ project(ProjectName
 # Auto-generate a version header (this requires you set VERSION in the project()
 # above)
 configure_file (
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/version.h.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/version/version.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/mylib/version.h.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/mylib/version.h"
 )
 
 # If you set any CMAKE_ variables, that can go here. (But usually don't do this,
@@ -68,8 +68,9 @@ endif()
 # required. Output libname matches target name, with the usual extensions on
 # your system
 add_library(mylib STATIC src/mylib.cpp include/mylib/mylib.hpp)
-target_include_directories(mylib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-                                        $<INSTALL_INTERFACE:${INCLUDE_DEST}>)
+target_include_directories(mylib PUBLIC 
+                        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+                        $<INSTALL_INTERFACE:${INCLUDE_DEST}>)
 target_compile_features(mylib PUBLIC cxx_std_11) # or cxx_std_14, or cxx_std_17
 # disable this line to get -std=g++11 etc. (also disable for INTERFACE targets)
 set_target_properties(mylib PROPERTIES CXX_EXTENSIONS OFF)
@@ -77,15 +78,16 @@ set_target_properties(mylib PROPERTIES CXX_EXTENSIONS OFF)
 # Link each target with other targets or add options, etc.
 
 # Adding something we can run - Output name matches target name
-add_executable(app app_src/main.cpp)
-target_compile_features(app PUBLIC cxx_std_11)
-set_target_properties(app PROPERTIES CXX_EXTENSIONS OFF)
-target_include_directories(app PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-                                      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/app_src)
+add_executable(myapp app_src/main.cpp)
+target_compile_features(myapp PUBLIC cxx_std_11)
+set_target_properties(myapp PROPERTIES CXX_EXTENSIONS OFF)
+target_include_directories(myapp PUBLIC 
+                        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+                        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/app_src)
 # Make sure you link your targets with this command. It can also link libraries
 # and even flags, so linking a target that does not exist will not give a
 # configure-time error.
-target_link_libraries(app PRIVATE mylib)
+target_link_libraries(myapp PRIVATE mylib)
 
 # Tests
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
@@ -98,12 +100,14 @@ if(PACKAGE_TESTS)
     add_subdirectory(tests)
 endif()
 
-# Installation
-# set(CMAKE_INSTALL_MESSAGE NEVER)  # suppress verbose install messages
-install(TARGETS mylib EXPORT lib DESTINATION ${LIB_DEST})
-install(FILES cmake/lib-config.cmake DESTINATION ${MAIN_LIB_DEST})
-install(EXPORT lib DESTINATION ${LIB_DEST})
-install(DIRECTORY include/mylib DESTINATION ${LIB_INCLUDE_DEST} FILES_MATCHING PATTERN "*.h*")
-install(DIRECTORY ${CMAKE_BINARY_DIR}/version DESTINATION ${INCLUDE_DEST}/version FILES_MATCHING PATTERN "*.h*")
-install(TARGETS app)
+# Installation set(CMAKE_INSTALL_MESSAGE NEVER)  # suppress verbose install
+# messages
+install(TARGETS mylib EXPORT mylib DESTINATION ${LIB_DEST})
+install(FILES cmake/mylib-config.cmake DESTINATION ${MAIN_LIB_DEST})
+install(EXPORT mylib DESTINATION ${LIB_DEST})
+install(DIRECTORY include/mylib DESTINATION ${LIB_INCLUDE_DEST} 
+        FILES_MATCHING PATTERN "*.h*")
+install(DIRECTORY ${CMAKE_BINARY_DIR}/mylib DESTINATION ${LIB_INCLUDE_DEST} 
+        FILES_MATCHING PATTERN "*.h") # for generated version.h file
+install(TARGETS myapp)
 
