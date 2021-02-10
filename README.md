@@ -45,15 +45,21 @@ You must then symlink the extra clang tools from the `llvm` installation:
     $ ln -s "$(brew --prefix llvm)/bin/clang-tidy" "$(brew --prefix)/bin/clang-tidy"
     $ ln -s "$(brew --prefix llvm)/bin/clang-apply-replacements" "$(brew --prefix)/bin/clang-apply-replacements"
 
-### TODO add Debian/Ubuntu Linux Host (incl. Windows WSL Debian/Ubuntu)
+### Debian/Ubuntu Linux Host (incl. Windows WSL Debian/Ubuntu)
 
     $ sudo apt update
     $ sudo apt install build-essential gdb git ccache clang-tidy cmake iwyu ninja-build python3-pip
     $ sudo pip3 install cpplint
 
-### TODO add Alpine Linux Host
+### Alpine Linux Host (incl. Windows WSL Alpine)
 
-    TBD...
+Note: need to become root to run the installation commands
+
+    $ su -
+    # apk update
+    # apk add alpine-sdk gdb git ccache cmake clang-extra-tools ninja py3-pip
+    # pip3 install cpplint
+    # exit
 
 ## Configure
 
@@ -125,6 +131,17 @@ the configure/build/debug commands to work seemlessly:
 - [CMake
   Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
 - [CMake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake)
+
+### Note on Windows WSL
+
+If you've cloned the project in WSL, open the project in VS Code from the WSL
+terminal by running the following from the project top-level:
+
+    code .
+
+The first time this is run, VS Code server will install in the WSL environment,
+which will take some time on the initial launch. Subsequent launches will be
+faster.
 
 ### Select Kit
 
