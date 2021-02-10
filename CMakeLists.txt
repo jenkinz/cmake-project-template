@@ -24,11 +24,14 @@ configure_file (
 
 # If you set any CMAKE_ variables, that can go here. (But usually don't do this,
 # except maybe for C++ standard)
-set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/bin)
-set(LIB_INCLUDE_DEST "include/lib")
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT) # can be overridden on cmd line
+    set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/install 
+        CACHE PATH "Default installation prefix" FORCE)
+endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+set(INCLUDE_DEST "include")
+set(LIB_INCLUDE_DEST "${INCLUDE_DEST}/lib")
 set(MAIN_LIB_DEST "lib/lib")
 set(LIB_DEST "${MAIN_LIB_DEST}")
-# set(APP_DEST "apps/${PROJECT_NAME}")
 
 # Find packages, other config-time commands can go here.
 
@@ -65,8 +68,8 @@ endif()
 # required. Output libname matches target name, with the usual extensions on
 # your system
 add_library(lib STATIC src/lib.cpp include/lib/lib.hpp)
-target_include_directories(lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
-                                    #   $<INSTALL_INTERFACE:${LIB_INCLUDE_DEST})
+target_include_directories(lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+                                      $<INSTALL_INTERFACE:${INCLUDE_DEST}>)
 target_compile_features(lib PUBLIC cxx_std_11) # or cxx_std_14, or cxx_std_17
 # disable this line to get -std=g++11 etc. (also disable for INTERFACE targets)
 set_target_properties(lib PROPERTIES CXX_EXTENSIONS OFF)
@@ -77,7 +80,8 @@ set_target_properties(lib PROPERTIES CXX_EXTENSIONS OFF)
 add_executable(app apps/app.cpp)
 target_compile_features(app PUBLIC cxx_std_11)
 set_target_properties(app PROPERTIES CXX_EXTENSIONS OFF)
-target_include_directories(app PUBLIC ${PROJECT_BINARY_DIR})
+target_include_directories(app PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+                                      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/apps)
 # Make sure you link your targets with this command. It can also link libraries
 # and even flags, so linking a target that does not exist will not give a
 # configure-time error.
@@ -100,7 +104,6 @@ install(TARGETS lib EXPORT lib DESTINATION ${LIB_DEST})
 install(FILES cmake/lib-config.cmake DESTINATION ${MAIN_LIB_DEST})
 install(EXPORT lib DESTINATION ${LIB_DEST})
 install(DIRECTORY include/lib DESTINATION ${LIB_INCLUDE_DEST} FILES_MATCHING PATTERN "*.h*")
-# install(FILES ${CMAKE_CURRENT_BINARY_DIR}/version/version.h DESTINATION
-# ${LIB_INCLUDE_DEST})
+install(DIRECTORY ${CMAKE_BINARY_DIR}/version DESTINATION ${INCLUDE_DEST}/version FILES_MATCHING PATTERN "*.h*")
+install(TARGETS app)
 
-# message("CMAKE_INSTALL_PREFIX = ${CMAKE_INSTALL_PREFIX}")

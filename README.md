@@ -89,6 +89,7 @@ each option with `-D`):
   style checking, `cpplint` must be in `PATH`)
 - `CMAKE_<LANG>_INCLUDE_WHAT_YOU_USE` (where `<LANG>` is `C` or `CXX`,
   `include-what-you-use` must be in `PATH`)
+- `CMAKE_INSTALL_PREFIX` - set to the desired installation location
 
 ## Build
 
@@ -108,7 +109,7 @@ To install, run the following from the `build` directory:
 
     cmake --install .
 
-By default, the installation prefix will be into an unversioned `bin/` directory
+By default, the installation prefix will be an unversioned `install/` directory
 at the project top-level. To customize this, set `CMAKE_INSTALL_PREFIX` when
 configuring.
 
@@ -159,7 +160,7 @@ select one
 
 Open Command (Command+Shift+P), type CMake, select `CMake: Select Variant` and
 select your desired build variant (Recommended: select `Debug + Static Analysis
-and Style Checks + include-what-you-use`)
+and Style Checks + IWYU`)
 
 ### Configure
 
