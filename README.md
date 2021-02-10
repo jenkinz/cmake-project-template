@@ -48,8 +48,8 @@ You must then symlink the extra clang tools from the `llvm` installation:
 ### TODO add Debian/Ubuntu Linux Host (incl. Windows WSL Debian/Ubuntu)
 
     $ sudo apt update
-    $ sudo apt install build-essential gdb git ccache clang-tidy cmake iwyu ninja-build python-pip
-    $ pip install cpplint
+    $ sudo apt install build-essential gdb git ccache clang-tidy cmake iwyu ninja-build python3-pip
+    $ sudo pip3 install cpplint
 
 ### TODO add Alpine Linux Host
 
