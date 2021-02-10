@@ -108,6 +108,10 @@ To install, run the following from the `build` directory:
 
     cmake --install .
 
+By default, the installation prefix will be into an unversioned `bin/` directory
+at the project top-level. To customize this, set `CMAKE_INSTALL_PREFIX` when
+configuring.
+
 
 ## Customizing `clang-tidy` Checks
 
