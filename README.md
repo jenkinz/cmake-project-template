@@ -28,8 +28,8 @@ template.
 - Library header interface files are placed in `include/<library-name>/`
   - In `#include` directives, always specify library name (e.g. 
     `#include "library-name/header.h"`)
-- Application source code and headers are placed in `app_src` (delete this
-  directory when project is library-only)
+- Application source code and headers are placed in `app_src/` (delete this
+  folder when project is library-only)
 - Source code file names are all lowercase, separated by underscores (e.g.
   `my_file.h` or `my_impl.c`)
   - C++ implementation files use extension `.cpp`
@@ -48,7 +48,7 @@ template.
 
 The following tools should be installed on the host machine prior to building:
 
-- [CMake](https://cmake.org/) (version 3.8 or later is required)
+- [CMake](https://cmake.org/) (version 3.12 or later is required)
 - [`ccache`](https://ccache.dev/)
 - [`clang-tidy`](https://clang.llvm.org/extra/clang-tidy/)
 - [`cpplint`](https://github.com/cpplint/cpplint)
