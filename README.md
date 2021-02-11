@@ -59,7 +59,7 @@ leiu of `make` for slightly speedier builds.
 
 Assuming you have [Homebrew](https://brew.sh) installed:
 
-    $ brew install ccache cmake cpplint include-what-you-use llvm
+    $ brew install ccache cmake cpplint doxygen graphviz include-what-you-use llvm
 
 You must then symlink the extra clang tools from the `llvm` installation:
 

@@ -51,16 +51,16 @@ if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
             message(FATAL_ERROR "git submodule update --init failed with $
                                 {GIT_SUBMOD_RESULT}, please checkout
                                 submodules")
-        endif()
-    endif()
-endif()
+        endif(NOT GIT_SUBMOD_RESULT EQUAL "0")
+    endif(GIT_SUBMODULE)
+endif(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
 
 ## CCache - speed up recompilation by caching previous compilations
 find_program(CCACHE_PROGRAM ccache)
 if(CCACHE_PROGRAM)
     set(CMAKE_C_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
     set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
-endif()
+endif(CCACHE_PROGRAM)
 
 # You should usually split this into folders, but this is a simple example
 
@@ -111,3 +111,18 @@ install(DIRECTORY ${CMAKE_BINARY_DIR}/mylib DESTINATION ${LIB_INCLUDE_DEST}
         FILES_MATCHING PATTERN "*.h") # for generated version.h file
 install(TARGETS myapp)
 
+# Generate documentation (Doxygen)
+# Require dot, treat the other components as optional
+find_package(Doxygen
+             REQUIRED dot
+             OPTIONAL_COMPONENTS mscgen dia)
+if(DOXYGEN_FOUND)
+    doxygen_add_docs(
+        doxygen
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        # ALL     # uncomment to add doxygen to default build target 'all.'
+        # (Otherwise, generate docs manually by running "make doxygen" or "ninja doxygen"
+        # from build directory.)
+        COMMENT "Generate doxygen docs"
+    )
+endif(DOXYGEN_FOUND)
