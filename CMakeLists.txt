@@ -5,7 +5,7 @@
 # Almost all CMake files should start with this You should always specify a
 # range with the newest and oldest tested versions of CMake. This will ensure
 # you pick up the best policies.
-cmake_minimum_required(VERSION 3.10...3.19)
+cmake_minimum_required(VERSION 3.12...3.19)
 
 # This is your project statement. You should always list languages; Listing the
 # version is nice here since it sets lots of useful variables (e.g. those used
@@ -34,6 +34,7 @@ set(MAIN_LIB_DEST "lib/mylib")
 set(LIB_DEST "${MAIN_LIB_DEST}")
 
 # Find packages, other config-time commands can go here.
+include(cmake/pmccabe.cmake)
 
 # Command to auto-update all git submodules: from
 # https://cliutils.gitlab.io/modern-cmake/chapters/basics/programs.html
@@ -74,6 +75,7 @@ target_include_directories(mylib PUBLIC
 target_compile_features(mylib PUBLIC cxx_std_11) # or cxx_std_14, or cxx_std_17
 # disable this line to get -std=g++11 etc. (also disable for INTERFACE targets)
 set_target_properties(mylib PROPERTIES CXX_EXTENSIONS OFF)
+target_add_cyclomatic_complexity_checks(mylib)
 
 # Link each target with other targets or add options, etc.
 
@@ -88,6 +90,7 @@ target_include_directories(myapp PUBLIC
 # and even flags, so linking a target that does not exist will not give a
 # configure-time error.
 target_link_libraries(myapp PRIVATE mylib)
+target_add_cyclomatic_complexity_checks(myapp)
 
 # Tests
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)

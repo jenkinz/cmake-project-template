@@ -8,6 +8,7 @@ modern CMake best practices. It includes support for the following:
 - Style checking with `cpplint` in accordance with the [Google C++ Style
   Guide](https://google.github.io/styleguide/cppguide.html)
 - Analysis of `#include` statements by `include-what-you-use`
+- Cyclomcatic complexity checks per-function by `pmccabe`
 - Testing using CMake's `ctest` and the
   [`googletest`](https://github.com/google/googletest) framework
 - Documentation generation with `doxygen`
@@ -53,6 +54,8 @@ The following tools should be installed on the host machine prior to building:
 - [`cpplint`](https://github.com/cpplint/cpplint)
 - [`include-what-you-use`](https://include-what-you-use.org/)
 - [`doxygen`](https://www.doxygen.nl/index.html)
+- [`pmccabe`](https://packages.debian.org/sid/pmccabe)
+- [Python 3](https://www.python.org)
 
 Optionally, you may also install the `ninja` build tool which can be used in
 leiu of `make` for slightly speedier builds.
@@ -61,7 +64,7 @@ leiu of `make` for slightly speedier builds.
 
 Assuming you have [Homebrew](https://brew.sh) installed:
 
-    $ brew install ccache cmake cpplint doxygen graphviz include-what-you-use llvm
+    $ brew install ccache cmake cpplint doxygen graphviz include-what-you-use llvm pmccabe python
 
 You must then symlink the extra clang tools from the `llvm` installation:
 
@@ -72,7 +75,7 @@ You must then symlink the extra clang tools from the `llvm` installation:
 ### Debian/Ubuntu Linux Host (incl. Windows WSL Debian/Ubuntu)
 
     $ sudo apt update
-    $ sudo apt install build-essential gdb git ccache clang-tidy cmake iwyu ninja-build python3-pip
+    $ sudo apt install build-essential gdb git ccache clang-tidy cmake iwyu ninja-build pmccabe python3-pip
     $ sudo pip3 install cpplint
 
 ### Alpine Linux Host (incl. Windows WSL Alpine)
