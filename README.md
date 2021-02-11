@@ -8,7 +8,7 @@ modern CMake best practices. It includes support for the following:
 - Style checking with `cpplint` in accordance with the [Google C++ Style
   Guide](https://google.github.io/styleguide/cppguide.html)
 - Analysis of `#include` statements by `include-what-you-use`
-- Cyclomcatic complexity checks per-function by `pmccabe`
+- Cyclomatic complexity checks per-function by `pmccabe`
 - Testing using CMake's `ctest` and the
   [`googletest`](https://github.com/google/googletest) framework
 - Documentation generation with `doxygen`
