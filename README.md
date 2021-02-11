@@ -10,6 +10,7 @@ modern CMake best practices. It includes support for the following:
 - Analysis of `#include` statements by `include-what-you-use`
 - Testing using CMake's `ctest` and the
   [`googletest`](https://github.com/google/googletest) framework
+- Documentation generation with `doxygen`
 - VS Code IDE support
 
 The CMake project configuration works best utilizing the native host environment
@@ -51,6 +52,7 @@ The following tools should be installed on the host machine prior to building:
 - [`clang-tidy`](https://clang.llvm.org/extra/clang-tidy/)
 - [`cpplint`](https://github.com/cpplint/cpplint)
 - [`include-what-you-use`](https://include-what-you-use.org/)
+- [`doxygen`](https://www.doxygen.nl/index.html)
 
 Optionally, you may also install the `ninja` build tool which can be used in
 leiu of `make` for slightly speedier builds.
