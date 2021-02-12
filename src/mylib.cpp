@@ -3,6 +3,7 @@
 ///
 /// Copyright 2021 MyCo Inc.
 /// ----------------------------------------------------------------------------
+
 #include <iosfwd>  // for string
 #include <string>  // for operator+, basic_string
 #include "mylib/mylib.hpp"
