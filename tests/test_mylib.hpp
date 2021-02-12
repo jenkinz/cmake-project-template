@@ -8,6 +8,10 @@
 #include <iosfwd>                   // for string
 #include "gtest/gtest_pred_impl.h"  // for Test
 
+/// @brief Text fixture for mylib.
+///
+/// @see SimpleLibFunction
+///
 class LibTest : public ::testing::Test {
   protected:
     // void SetUp() override {}

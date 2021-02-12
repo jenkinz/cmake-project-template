@@ -12,7 +12,7 @@
 int main() {
     std::cout << "Version " << VERSION << std::endl;
     std::cout << "Simple example C++ compiled correctly and ran" << std::endl;
-    std::cout << SimpleLibFunction("Testing") << std::endl;
+    std::cout << mylib::SimpleLibFunction("Testing") << std::endl;
 
     // uncomment to cause cyclomatic complexity violation:
     // if (1 < arc4random()) { // NOLINT

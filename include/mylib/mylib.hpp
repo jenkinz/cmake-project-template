@@ -7,4 +7,8 @@
 
 #include <iosfwd> // for string
 
+namespace mylib {
+
 std::string SimpleLibFunction(std::string const & param = "Default");
+
+}; // namespace mylib

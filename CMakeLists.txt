@@ -69,6 +69,7 @@ endif(CCACHE_PROGRAM)
 # required. Output libname matches target name, with the usual extensions on
 # your system
 add_library(mylib STATIC src/mylib.cpp include/mylib/mylib.hpp)
+add_library(mylib::mylib ALIAS mylib)
 target_include_directories(mylib PUBLIC 
                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                         $<INSTALL_INTERFACE:${INCLUDE_DEST}>)
