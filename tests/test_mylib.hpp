@@ -3,7 +3,9 @@
 ///
 /// Copyright 2021 MyCo Inc.
 /// ----------------------------------------------------------------------------
-#pragma once
+
+#ifndef TEST_MYLIB_HPP_
+#define TEST_MYLIB_HPP_
 
 #include <iosfwd>                   // for string
 #include "gtest/gtest_pred_impl.h"  // for Test
@@ -21,3 +23,5 @@ class LibTest : public ::testing::Test {
     // Test Fixture data
     static std::string const kExpectedStringPrefix_;
 };
+
+#endif // TEST_MYLIB_HPP_
