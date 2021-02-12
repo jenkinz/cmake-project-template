@@ -3,6 +3,7 @@
 ///
 /// Copyright 2021 MyCo Inc.
 /// ----------------------------------------------------------------------------
+
 #include <gtest/gtest-message.h>    // for Message
 #include <gtest/gtest-test-part.h>  // for TestPartResult, SuiteApiResolver
 #include <string>                   // for operator+
