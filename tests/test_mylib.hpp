@@ -12,7 +12,7 @@
 
 /// @brief Text fixture for mylib.
 ///
-/// @see SimpleLibFunction
+/// @see mylib::SimpleLibFunction
 ///
 class LibTest : public ::testing::Test {
   protected:
