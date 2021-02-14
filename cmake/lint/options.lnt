@@ -1,0 +1,9 @@
+-"format=%f:%l: %t %n (lint): %m"   /* optimize error message output format for IDE integration */
+-width=320                          /* max column width of message output before line break inserted */
+-hB^3                               /* message line height options */
+-wlib(4) -wlib(0)                   /* suppress messages for library headers */
+-vt_passes(2)                       /* Use two value tracking passes */
+-max_threads=0                      /* Use best number of cores to parallelize*/
+/*-w2*/                                 /* Error and Warning messages only */
+/*-e526*/                               /* Suppress warning "symbol not defined" when declared with external linkage */
+/*-e641*/                               /* Suppress warning "implicit conversion of enum to integral type 'int'" */

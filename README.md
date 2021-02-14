@@ -24,6 +24,30 @@ template.
 
 ## Standards
 
+Checks are included in this project template to adhere to the following code
+standards and guidelines, which the developer should review and be familiar
+with:
+
+- [CPP Core
+  Guidelines](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
+- [Autosar C++14
+  Guidelines](https://www.autosar.org/standards/adaptive-platform/adaptive-platform-1903/)
+  (See "General")
+- [Cert C++ Coding
+  Standard](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682)
+- [Google C++ Style
+  Guide](https://google.github.io/styleguide/cppguide.html)
+
+By extension from Autosar C++14, the following standards should also be
+reviewed:
+- MISRA C++:2008
+- Joint Strike Fighter Air Vehicle C++ Coding Standards
+- High Integrity C++ Coding Standard Version 4.0
+
+## Project Structure and Naming Conventions
+
+The following naming conventions are used throughout this project:
+
 - Library source code implementation files are placed in `src/`
 - Library header interface files are placed in `include/<library-name>/`
   - In `#include` directives, always specify library name (e.g. 

@@ -13,7 +13,7 @@ cmake_minimum_required(VERSION 3.12...3.19)
 project(ProjectName
         VERSION 0.1.0.0 # Major.minor.patch.tweak (see version.h.in)
         DESCRIPTION "CMake project template"
-        LANGUAGES C CXX)
+        LANGUAGES CXX)
 
 # Auto-generate a version header (this requires you set VERSION in the project()
 # above)
@@ -34,6 +34,7 @@ set(MAIN_LIB_DEST "lib/mylib")
 set(LIB_DEST "${MAIN_LIB_DEST}")
 
 # Find packages, other config-time commands can go here.
+include(cmake/pc-lint.cmake)
 include(cmake/pmccabe.cmake)
 
 # Command to auto-update all git submodules: from
@@ -77,6 +78,7 @@ target_compile_features(mylib PUBLIC cxx_std_11) # or cxx_std_14, or cxx_std_17
 # disable this line to get -std=g++11 etc. (also disable for INTERFACE targets)
 set_target_properties(mylib PROPERTIES CXX_EXTENSIONS OFF)
 target_add_cyclomatic_complexity_checks(mylib)
+# target_add_pclint_checks(mylib)
 
 # Link each target with other targets or add options, etc.
 
