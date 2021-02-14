@@ -7,12 +7,12 @@
 #ifndef MYLIB_H_
 #define MYLIB_H_
 
-#include <iosfwd> // for string
+#include <string>
 
 namespace mylib {
 
-std::string SimpleLibFunction(std::string const & param = "Default");
+std::string SimpleLibFunction(std::string const& param = "Default");
 
-}; // namespace mylib
+};  // namespace mylib
 
-#endif // MYLIB_H_
+#endif  // MYLIB_H_

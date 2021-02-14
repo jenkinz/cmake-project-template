@@ -1,4 +1,4 @@
-/// @file test_lib.hpp 
+/// @file test_lib.hpp
 /// @brief Lib test fixtures.
 ///
 /// Copyright 2021 MyCo Inc.
@@ -7,15 +7,16 @@
 #ifndef TEST_MYLIB_HPP_
 #define TEST_MYLIB_HPP_
 
-#include <iosfwd>                   // for string
-#include "gtest/gtest_pred_impl.h"  // for Test
+#include <gtest/gtest.h>
+
+#include <string>
 
 /// @brief Text fixture for mylib.
 ///
 /// @see mylib::SimpleLibFunction
 ///
 class LibTest : public ::testing::Test {
-  protected:
+   protected:
     // void SetUp() override {}
 
     // void TearDown() override {}
@@ -24,4 +25,4 @@ class LibTest : public ::testing::Test {
     static std::string const kExpectedStringPrefix_;
 };
 
-#endif // TEST_MYLIB_HPP_
+#endif  // TEST_MYLIB_HPP_

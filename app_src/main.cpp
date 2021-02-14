@@ -4,10 +4,11 @@
 /// Copyright 2021 MyCo Inc.
 /// ----------------------------------------------------------------------------
 
+#include "mylib/mylib.hpp"
+
 // #include <cstdlib>
 #include <iostream>
 
-#include "mylib/mylib.hpp"
 #include "mylib/version.h"
 
 int main() {
