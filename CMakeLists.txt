@@ -25,7 +25,7 @@ configure_file (
 # If you set any CMAKE_ variables, that can go here. (But usually don't do this,
 # except maybe for C++ standard)
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT) # can be overridden on cmd line
-    set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/install 
+    set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/install
         CACHE PATH "Default installation prefix" FORCE)
 endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 set(INCLUDE_DEST "include")
@@ -71,7 +71,7 @@ endif(CCACHE_PROGRAM)
 # your system
 add_library(mylib STATIC src/mylib.cpp include/mylib/mylib.hpp)
 add_library(mylib::mylib ALIAS mylib)
-target_include_directories(mylib PUBLIC 
+target_include_directories(mylib PUBLIC
                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                         $<INSTALL_INTERFACE:${INCLUDE_DEST}>)
 target_compile_features(mylib PUBLIC cxx_std_11) # or cxx_std_14, or cxx_std_17
@@ -86,7 +86,7 @@ target_add_cyclomatic_complexity_checks(mylib)
 add_executable(myapp app_src/main.cpp)
 target_compile_features(myapp PUBLIC cxx_std_11)
 set_target_properties(myapp PROPERTIES CXX_EXTENSIONS OFF)
-target_include_directories(myapp PUBLIC 
+target_include_directories(myapp PUBLIC
                         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/app_src)
 # Make sure you link your targets with this command. It can also link libraries
@@ -111,9 +111,9 @@ endif()
 install(TARGETS mylib EXPORT mylib DESTINATION ${LIB_DEST})
 install(FILES cmake/mylib-config.cmake DESTINATION ${MAIN_LIB_DEST})
 install(EXPORT mylib DESTINATION ${LIB_DEST})
-install(DIRECTORY include/mylib DESTINATION ${LIB_INCLUDE_DEST} 
+install(DIRECTORY include/mylib DESTINATION ${LIB_INCLUDE_DEST}
         FILES_MATCHING PATTERN "*.h*")
-install(DIRECTORY ${CMAKE_BINARY_DIR}/mylib DESTINATION ${LIB_INCLUDE_DEST} 
+install(DIRECTORY ${CMAKE_BINARY_DIR}/mylib DESTINATION ${LIB_INCLUDE_DEST}
         FILES_MATCHING PATTERN "*.h") # for generated version.h file
 install(TARGETS myapp)
 

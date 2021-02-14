@@ -50,7 +50,7 @@ The following naming conventions are used throughout this project:
 
 - Library source code implementation files are placed in `src/`
 - Library header interface files are placed in `include/<library-name>/`
-  - In `#include` directives, always specify library name (e.g. 
+  - In `#include` directives, always specify library name (e.g.
     `#include "library-name/header.h"`)
 - Application source code and headers are placed in `app_src/` (delete this
   folder when project is library-only)
@@ -66,7 +66,7 @@ The following naming conventions are used throughout this project:
   (e.g. `my-lib` or `my-app`)
   - Folder subdirectories for library includes should match the target name
     (e.g. `include/libname/` or `include/my-lib/`)
-  
+
 
 ## Tool Prerequisites
 
@@ -89,6 +89,8 @@ leiu of `make` for slightly speedier builds.
 Assuming you have [Homebrew](https://brew.sh) installed:
 
     $ brew install ccache cmake cpplint doxygen graphviz include-what-you-use llvm pmccabe python
+    $ python3 -m pip install pre-commit
+    $ pre-commit install
 
 You must then symlink the extra clang tools from the `llvm` installation:
 
@@ -101,6 +103,8 @@ You must then symlink the extra clang tools from the `llvm` installation:
     $ sudo apt update
     $ sudo apt install build-essential gdb git ccache clang-tidy cmake iwyu ninja-build pmccabe python3-pip
     $ sudo pip3 install cpplint
+    $ sudo pip3 install pre-commit
+    $ pre-commit install
 
 ### Alpine Linux Host (incl. Windows WSL Alpine)
 
@@ -111,7 +115,9 @@ immediately available on Alpine.
     # apk update
     # apk add alpine-sdk gdb git ccache cmake clang-extra-tools ninja py3-pip
     # pip3 install cpplint
+    # pip3 install pre-commit
     # exit
+    $ pre-commit install
 
 ## Configure
 
@@ -173,7 +179,7 @@ skipped by `clang-tidy`. A default set of rules is provided. Customize them by
 reviewing the available [Clang-Tidy
 Checks](https://clang.llvm.org/extra/clang-tidy/checks/list.html) and setting
 the appropriate options in the `.clang-tidy` file following the
-[instructions](https://clang.llvm.org/extra/clang-tidy/). 
+[instructions](https://clang.llvm.org/extra/clang-tidy/).
 
 
 ## Visual Studio Code IDE Support
@@ -240,4 +246,3 @@ Open Command (Command+Shift+P), type CMake, select `CMake: Run Tests`
 ### Other Commands
 
 Open Command (Command+Shift+P), type CMake, select desired command
-

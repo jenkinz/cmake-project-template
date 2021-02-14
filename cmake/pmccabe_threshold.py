@@ -25,7 +25,7 @@ def pmccabe_threshold(argv):
     """
     # argv[1] is the source file to perform cyclomatic complexity analysis on
     cmd = f"pmccabe -v {argv[1]}"
-    completed_process = subprocess.run(args=cmd, capture_output=True, 
+    completed_process = subprocess.run(args=cmd, capture_output=True,
                                        shell=True, text=True)
 
     print(completed_process.stdout)  # always print the pmccabe output to stdout

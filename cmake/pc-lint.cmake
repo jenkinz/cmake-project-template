@@ -18,11 +18,11 @@ function(target_add_pclint_checks target_name)
     if(PCLP)
         set(all_lint_out_files)
 
-        # Set the desired standards checks here: 
-        #   for C:      au-misra3.lnt -- MISRA-C:2012 
+        # Set the desired standards checks here:
+        #   for C:      au-misra3.lnt -- MISRA-C:2012
         #   for C++:    au-autosar.lnt -- Autosar C++14
         set(lint_stds_checks "au-autosar.lnt")
-		
+
         # PC-Lint Plus must be in PATH (avoid errors when spaces in path)
 		get_filename_component(pclp_exe ${PCLP} NAME)
 
@@ -70,7 +70,7 @@ function(target_add_pclint_checks target_name)
 
         # all lint (including wrap-up) -- enable once initial lint
         # development/integration completed
-        set(all_lint_out_file 
+        set(all_lint_out_file
             ${CMAKE_CURRENT_BINARY_DIR}/static_analysis/lint/_all.lint.txt)
 
         add_custom_command(OUTPUT ${all_lint_out_file}
