@@ -193,8 +193,8 @@ At a minimum, you should install the following VS Code Extensions in order for
 the configure/build/debug commands to work seemlessly:
 
 - [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
-- [CMake
-  Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
+- [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
+- [Clang-Format](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format)
 - [CMake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake)
 
 ### Note on Windows WSL
