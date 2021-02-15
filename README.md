@@ -103,7 +103,7 @@ You must then symlink the extra clang tools from the `llvm` installation:
 ### Debian/Ubuntu Linux Host (incl. Windows WSL Debian/Ubuntu)
 
     $ sudo apt update
-    $ sudo apt install build-essential gdb git ccache clang-tidy cmake iwyu ninja-build pmccabe python3-pip
+    $ sudo apt install build-essential doxygen graphviz gdb git ccache clang-format clang-tidy cmake iwyu ninja-build pmccabe python3-pip
     $ sudo pip3 install cpplint
     $ sudo pip3 install pre-commit
     $ pre-commit install
