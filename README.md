@@ -4,6 +4,7 @@ This is a template project for a C/C++ library and/or application utilizing
 modern CMake best practices. It includes support for the following:
 
 - CMake build configurations
+- Formatting of source code for standards compliance with `clang-format`
 - Built-in static analysis with `clang-tidy`
 - Style checking with `cpplint` in accordance with the [Google C++ Style
   Guide](https://google.github.io/styleguide/cppguide.html)
@@ -74,6 +75,7 @@ The following tools should be installed on the host machine prior to building:
 
 - [CMake](https://cmake.org/) (version 3.12 or later is required)
 - [`ccache`](https://ccache.dev/)
+- [`clang-format`](https://clang.llvm.org/docs/ClangFormat.html)
 - [`clang-tidy`](https://clang.llvm.org/extra/clang-tidy/)
 - [`cpplint`](https://github.com/cpplint/cpplint)
 - [`include-what-you-use`](https://include-what-you-use.org/)

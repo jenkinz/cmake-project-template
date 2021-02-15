@@ -14,5 +14,6 @@
 /// an enhanced explanation of the function and its properties.
 ///
 std::string mylib::SimpleLibFunction(std::string const& param) {
-    return "Compiled in library, param = " + param;
+    std::string const prepend = "Compiled in library, param = ";
+    return prepend + param;
 }
