@@ -77,8 +77,10 @@ target_include_directories(mylib PUBLIC
 target_compile_features(mylib PUBLIC cxx_std_11) # or cxx_std_14, or cxx_std_17
 # disable this line to get -std=g++11 etc. (also disable for INTERFACE targets)
 set_target_properties(mylib PROPERTIES CXX_EXTENSIONS OFF)
-target_add_cyclomatic_complexity_checks(mylib)
-# target_add_pclint_checks(mylib)
+if(CMAKE_CXX_CLANG_TIDY) # only do cyclo and pclint if static analysis enabled
+    target_add_cyclomatic_complexity_checks(mylib)
+    # target_add_pclint_checks(mylib)
+endif(CMAKE_CXX_CLANG_TIDY)
 
 # Link each target with other targets or add options, etc.
 
@@ -93,7 +95,9 @@ target_include_directories(myapp PUBLIC
 # and even flags, so linking a target that does not exist will not give a
 # configure-time error.
 target_link_libraries(myapp PRIVATE mylib)
-target_add_cyclomatic_complexity_checks(myapp)
+if(CMAKE_CXX_CLANG_TIDY) # only do cyclo and pclint if static analysis enabled
+    target_add_cyclomatic_complexity_checks(myapp)
+endif(CMAKE_CXX_CLANG_TIDY)
 
 # Tests
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
