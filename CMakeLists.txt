@@ -115,7 +115,7 @@ install(DIRECTORY include/mylib DESTINATION ${LIB_INCLUDE_DEST}
         FILES_MATCHING PATTERN "*.h*")
 install(DIRECTORY ${CMAKE_BINARY_DIR}/mylib DESTINATION ${LIB_INCLUDE_DEST}
         FILES_MATCHING PATTERN "*.h") # for generated version.h file
-install(TARGETS myapp)
+install(TARGETS myapp RUNTIME DESTINATION bin)
 
 # Generate documentation (Doxygen)
 # Require dot, treat the other components as optional
