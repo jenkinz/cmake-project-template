@@ -36,5 +36,5 @@ test:
     - docker-shell
   script:
     - docker build -t $DOCKER_IMAGE .
-    - docker run --rm --mount type=bind,source="$(pwd)",target=/roadrunner --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE ctest
+    - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE ctest
     - sudo chown -R gitlab-runner:gitlab-runner build
