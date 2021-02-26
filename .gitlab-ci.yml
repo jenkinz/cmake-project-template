@@ -1,0 +1,40 @@
+# NOTE: customize `example-project-image` name below before deploying to a new
+# project.
+
+stages:
+  - build
+  - test
+
+variables:
+  DOCKER_IMAGE: "example-project-image"
+  CMAKE_FLAGS: "-GNinja -DCMAKE_C_CLANG_TIDY=\"clang-tidy\" -DCMAKE_CXX_CLANG_TIDY=\"clang-tidy\""
+
+build:
+  stage: build
+  tags:
+    - docker-shell  # gitlab runner must be setup as capable of building docker images from shell
+  script:
+    - docker build -t $DOCKER_IMAGE .  # build image from project Dockerfile if changed
+    - >
+      docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME" $DOCKER_IMAGE
+      mkdir -p build &&
+      cmake $CMAKE_FLAGS .. &&
+      cmake --build .
+    - sudo chown -R gitlab-runner:gitlab-runner build  # by default, docker-written artifacts are owned by root
+  artifacts:
+    paths:
+      - build
+      # depending on your build setup you can cache outputs to reduce the build time
+      # cache:
+      #   paths:
+      #     - build
+
+# run tests using the binary built before
+test:
+  stage: test
+  tags:
+    - docker-shell
+  script:
+    - docker build -t $DOCKER_IMAGE .
+    - docker run --rm --mount type=bind,source="$(pwd)",target=/roadrunner --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE ctest
+    - sudo chown -R gitlab-runner:gitlab-runner build
