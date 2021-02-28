@@ -4,10 +4,12 @@
 stages:
   - build
   - test
+  - coverage
 
 variables:
   DOCKER_IMAGE: "example-project-image"
-  CMAKE_FLAGS: "-GNinja -DCMAKE_C_CLANG_TIDY=\"clang-tidy\" -DCMAKE_CXX_CLANG_TIDY=\"clang-tidy\""
+  CMAKE_FLAGS_BUILD: "-GNinja -DCMAKE_C_CLANG_TIDY=\"clang-tidy;warnings-as-errors=*\" -DCMAKE_CXX_CLANG_TIDY=\"clang-tidy;warnings-as-errors=*\""
+  CMAKE_FLAGS_COVERAGE: "-GNinja -DCODE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Debug"
 
 build:
   stage: build
@@ -15,11 +17,9 @@ build:
     - docker-shell  # gitlab runner must be setup as capable of building docker images from shell
   script:
     - docker build -t $DOCKER_IMAGE .  # build image from project Dockerfile if changed
-    - >
-      docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME" $DOCKER_IMAGE
-      mkdir -p build &&
-      cmake $CMAKE_FLAGS .. &&
-      cmake --build .
+    - mkdir -p build
+    - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE cmake $CMAKE_FLAGS ..
+    - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE cmake --build .
     - sudo chown -R gitlab-runner:gitlab-runner build  # by default, docker-written artifacts are owned by root
   artifacts:
     paths:
@@ -38,3 +38,17 @@ test:
     - docker build -t $DOCKER_IMAGE .
     - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE ctest
     - sudo chown -R gitlab-runner:gitlab-runner build
+
+coverage:
+  stage: coverage
+  tags:
+    - docker-shell
+  script:
+    - docker build -t $DOCKER_IMAGE .  # build image from project Dockerfile if changed
+    - mkdir -p build_coverage
+    - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build_coverage" $DOCKER_IMAGE cmake $CMAKE_FLAGS_COVERAGE ..
+    - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build_coverage" $DOCKER_IMAGE cmake --build . --target ctest_coverage
+    - sudo chown -R gitlab-runner:gitlab-runner build_coverage  # by default, docker-written artifacts are owned by root
+  artifacts:
+    paths:
+      - build_coverage

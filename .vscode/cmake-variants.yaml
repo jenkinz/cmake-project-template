@@ -34,7 +34,7 @@ enableStaticAnalysisAndStyleChecks:
       short: No Static Analysis or Style Checks
 
 includeWhatYouUse:
-  default: enable
+  default: disable
   choices:
     enable:
       short: IWYU

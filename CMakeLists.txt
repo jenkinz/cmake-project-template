@@ -34,8 +34,26 @@ set(MAIN_LIB_DEST "lib/mylib")
 set(LIB_DEST "${MAIN_LIB_DEST}")
 
 # Find packages, other config-time commands can go here.
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(cmake/pc-lint.cmake)
 include(cmake/pmccabe.cmake)
+
+# Enable/disable code coverage
+# NOTE: Code coverage and static analysis checks cannot be enabled
+# simultaneously. Namely, this has to do with clang-tidy and GCC not recognizing
+# all compilation flags. To run code coverage, create a separate build directory
+# from the development build directory used for building and debugging, and
+# disable static analysis checks in the coverage build directory.
+option(CODE_COVERAGE "Compute code coverage using gcov and lcov" OFF)
+if(CODE_COVERAGE)
+    if (CMAKE_CXX_CLANG_TIDY)
+        message(FATAL_ERROR "Static analysis and code coverage cannot both be \
+                            turned on in the same build configuration. Create a\
+                            separate build directory for code coverage with \
+                            static analysis disabled.")
+    endif(CMAKE_CXX_CLANG_TIDY)
+    include(CodeCoverage)
+endif(CODE_COVERAGE)
 
 # Command to auto-update all git submodules: from
 # https://cliutils.gitlab.io/modern-cmake/chapters/basics/programs.html
@@ -75,6 +93,10 @@ target_include_directories(mylib PUBLIC
                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                         $<INSTALL_INTERFACE:${INCLUDE_DEST}>)
 target_compile_features(mylib PUBLIC cxx_std_11) # or cxx_std_14, or cxx_std_17
+if(CODE_COVERAGE)
+    target_compile_options(mylib PRIVATE -fprofile-arcs -ftest-coverage
+                                         -fprofile-abs-path)
+endif()
 # disable this line to get -std=g++11 etc. (also disable for INTERFACE targets)
 set_target_properties(mylib PROPERTIES CXX_EXTENSIONS OFF)
 if(CMAKE_CXX_CLANG_TIDY) # only do cyclo and pclint if static analysis enabled
@@ -91,6 +113,10 @@ set_target_properties(myapp PROPERTIES CXX_EXTENSIONS OFF)
 target_include_directories(myapp PUBLIC
                         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/app_src)
+if(CODE_COVERAGE)
+    target_compile_options(myapp PRIVATE -fprofile-arcs -ftest-coverage
+                                         -fprofile-abs-path)
+endif()
 # Make sure you link your targets with this command. It can also link libraries
 # and even flags, so linking a target that does not exist will not give a
 # configure-time error.
@@ -131,8 +157,23 @@ if(DOXYGEN_FOUND)
         doxygen
         ${CMAKE_CURRENT_SOURCE_DIR}
         # ALL     # uncomment to add doxygen to default build target 'all.'
-        # (Otherwise, generate docs manually by running "make doxygen" or "ninja doxygen"
-        # from build directory.)
+        # (Otherwise, generate docs manually by running "make doxygen" or "ninja
+        # doxygen" from build directory.)
         COMMENT "Generate doxygen docs"
     )
 endif(DOXYGEN_FOUND)
+
+# Setup Code Coverage
+# to run: invoke `cmake --build . --target ctest_coverage` from build directory
+if(CODE_COVERAGE)
+    # Note: add each test target defined above to the DEPENDENCIES list below
+    setup_target_for_coverage_lcov(
+        NAME ctest_coverage
+        EXECUTABLE ctest
+        DEPENDENCIES test-mylib mylib # add any additional test targets here
+        EXCLUDE /usr/include/* app_src/main.cpp
+    )
+    # Note: add link dependency `gcov` to each test target defined above
+    target_link_libraries(test-mylib gcov)
+    target_link_libraries(mylib gcov)
+endif()
