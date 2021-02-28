@@ -1,5 +1,7 @@
 # ProjectName
 
+[![pipeline status](http://dev.sandel.local/toolchain/cmake-project-template/badges/main/pipeline.svg)](http://dev.sandel.local/toolchain/cmake-project-template/-/commits/main) [![coverage report](http://dev.sandel.local/toolchain/cmake-project-template/badges/main/coverage.svg)](http://dev.sandel.local/toolchain/cmake-project-template/-/commits/main)
+
 This is a template project for a C/C++ library and/or application utilizing
 modern CMake best practices. It includes support for the following:
 
@@ -82,6 +84,8 @@ The following tools should be installed on the host machine prior to building:
 - [`doxygen`](https://www.doxygen.nl/index.html)
 - [`pmccabe`](https://packages.debian.org/sid/pmccabe)
 - [Python 3](https://www.python.org)
+- `gcov`
+- `lcov`
 
 Optionally, you may also install the `ninja` build tool which can be used in
 leiu of `make` for slightly speedier builds.
@@ -102,10 +106,15 @@ You must then symlink the extra clang tools from the `llvm` installation:
 
 ### Debian/Ubuntu Linux Host (incl. Windows WSL Debian/Ubuntu)
 
+Note: LLVM version 11 is installed for the clang-extra tools including clang-tidy, clang-format, etc. The default
+packages in Debian are too old (at version 7 as of this writing) so a newer version is installed below.
+
     $ sudo apt update
-    $ sudo apt install build-essential doxygen graphviz gdb git ccache clang-format clang-tidy cmake iwyu ninja-build pmccabe python3-pip
-    $ sudo pip3 install cpplint
-    $ sudo pip3 install pre-commit
+    $ sudo apt install build-essential doxygen graphviz gdb git ccache cmake iwyu ninja-build pmccabe python3-pip
+    $ sudo apt install clang-tidy-13 clang-format-13
+    $ sudo ln -sf $(which clang-tidy-13) /usr/local/bin/clang-tidy
+    $ sudo ln -sf $(which clang-format-13) /usr/local/bin/clang-format
+    $ sudo python3 -m pip install cpplint pre-commit
     $ pre-commit install
 
 ### Alpine Linux Host (incl. Windows WSL Alpine)
@@ -149,6 +158,8 @@ each option with `-D`):
   style checking, `cpplint` must be in `PATH`)
 - `CMAKE_<LANG>_INCLUDE_WHAT_YOU_USE` (where `<LANG>` is `C` or `CXX`,
   `include-what-you-use` must be in `PATH`)
+- `CODE_COVERAGE=ON|OFF` (default `OFF`) - compute Code Coverage using gcov and
+  lcov. See note on Code Coverage below.
 - `CMAKE_INSTALL_PREFIX` - set to the desired installation location
 
 ## Build
@@ -173,6 +184,22 @@ By default, the installation prefix will be an unversioned `install/` directory
 at the project top-level. To customize this, set `CMAKE_INSTALL_PREFIX` when
 configuring.
 
+## Code Coverage
+
+Code coverage can be computed by passing the `CODE_COVERAGE=ON` option during
+CMake configuration. Code coverage may NOT be enabled simultaneously with static
+analysis (namely, `clang-tidy` checks), because certain compilation options
+conflict between GCC and Clang. So if you want to compute code coverage, make a
+separate build directory just for coverage like so:
+
+    mkdir build_coverage && cd build_coverage
+    cmake -DCODE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Debug -GNinja ..
+    cmake --build . --target ctest_coverage
+
+Coverage should only be configured using the `Debug` build type. The commands
+above will configure coverage, and execute the test suite to determine runtime
+coverage. The HTML reports will be output to `build_coverage/ctest_coverage` and
+can be viewed by opening `index.html` in a web browser.
 
 ## Customizing `clang-tidy` Checks
 

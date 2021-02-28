@@ -68,7 +68,6 @@ macro(package_add_test_with_libraries TESTNAME FILES LIBRARIES
 endmacro()
 
 # Define tests here.
-
 package_add_test_with_libraries(test-mylib
                                 test_mylib.cpp
                                 mylib "")
