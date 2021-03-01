@@ -116,8 +116,8 @@ version 7 as of this writing) so a newer version is installed below.
     $ chmod +x llvm.sh
     $ sudo ./llvm.sh 11
     $ sudo apt install clang-tidy-11 clang-format-11
-    $ sudo ln -sf $(which clang-tidy-13) /usr/local/bin/clang-tidy
-    $ sudo ln -sf $(which clang-format-13) /usr/local/bin/clang-format
+    $ sudo ln -sf $(which clang-tidy-11) /usr/local/bin/clang-tidy
+    $ sudo ln -sf $(which clang-format-11) /usr/local/bin/clang-format
     $ sudo python3 -m pip install cpplint pre-commit
     $ pre-commit install
 
