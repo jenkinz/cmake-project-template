@@ -4,8 +4,7 @@ FROM debian:10
 # add additional RUN commands as necessary for any custom install scripts
 RUN apt-get update \
     && apt-get install -y lsb-release wget software-properties-common gnupg \
-        ccache cmake doxygen git graphviz iwyu lcov ninja-build pmccabe \
-        python3-pip \
+    ccache cmake doxygen git graphviz iwyu lcov ninja-build pmccabe python3-pip\
     && wget https://apt.llvm.org/llvm.sh \
     && chmod +x llvm.sh \
     && ./llvm.sh \
