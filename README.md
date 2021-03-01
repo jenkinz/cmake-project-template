@@ -106,12 +106,16 @@ You must then symlink the extra clang tools from the `llvm` installation:
 
 ### Debian/Ubuntu Linux Host (incl. Windows WSL Debian/Ubuntu)
 
-Note: LLVM version 11 is installed for the clang-extra tools including clang-tidy, clang-format, etc. The default
-packages in Debian are too old (at version 7 as of this writing) so a newer version is installed below.
+Note: LLVM version 11 is installed for the clang-extra tools including
+clang-tidy and clang-format. The default packages in Debian are too old (at
+version 7 as of this writing) so a newer version is installed below.
 
     $ sudo apt update
-    $ sudo apt install build-essential doxygen graphviz gdb git ccache cmake iwyu ninja-build pmccabe python3-pip
-    $ sudo apt install clang-tidy-13 clang-format-13
+    $ sudo apt install build-essential doxygen graphviz gdb git ccache cmake iwyu lcov ninja-build pmccabe python3-pip
+    $ wget https://apt.llvm.org/llvm.sh
+    $ chmod +x llvm.sh
+    $ sudo ./llvm.sh 11
+    $ sudo apt install clang-tidy-11 clang-format-11
     $ sudo ln -sf $(which clang-tidy-13) /usr/local/bin/clang-tidy
     $ sudo ln -sf $(which clang-format-13) /usr/local/bin/clang-format
     $ sudo python3 -m pip install cpplint pre-commit
