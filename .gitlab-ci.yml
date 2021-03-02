@@ -37,6 +37,7 @@ test:
   script:
     - docker build -t $DOCKER_IMAGE .
     - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE ctest
+  after_script:
     - sudo chown -R gitlab-runner:gitlab-runner build
 
 coverage:
@@ -48,6 +49,7 @@ coverage:
     - mkdir -p build_coverage
     - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build_coverage" $DOCKER_IMAGE cmake $CMAKE_FLAGS_COVERAGE ..
     - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build_coverage" $DOCKER_IMAGE cmake --build . --target ctest_coverage
+  after_script:
     - sudo chown -R gitlab-runner:gitlab-runner build_coverage  # by default, docker-written artifacts are owned by root
   artifacts:
     paths:
