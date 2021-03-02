@@ -8,7 +8,7 @@ stages:
 
 variables:
   DOCKER_IMAGE: "example-project-image"
-  CMAKE_FLAGS_BUILD: "-GNinja -DCMAKE_C_CLANG_TIDY=\"clang-tidy;warnings-as-errors=*\" -DCMAKE_CXX_CLANG_TIDY=\"clang-tidy;warnings-as-errors=*\""
+  CMAKE_FLAGS_BUILD: '-GNinja -DCMAKE_C_CLANG_TIDY=clang-tidy;-warnings-as-errors=* -DCMAKE_CXX_CLANG_TIDY=clang-tidy;-warnings-as-errors=*'
   CMAKE_FLAGS_COVERAGE: "-GNinja -DCODE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Debug"
 
 build:
@@ -18,7 +18,7 @@ build:
   script:
     - docker build -t $DOCKER_IMAGE .  # build image from project Dockerfile if changed
     - mkdir -p build
-    - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE cmake $CMAKE_FLAGS ..
+    - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE cmake $CMAKE_FLAGS_BUILD ..
     - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE cmake --build .
     - sudo chown -R gitlab-runner:gitlab-runner build  # by default, docker-written artifacts are owned by root
   artifacts:
