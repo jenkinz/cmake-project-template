@@ -15,8 +15,10 @@ function(target_add_cyclomatic_complexity_checks target_name)
     if(PMCCABE)
         foreach(source ${source_list})
             get_filename_component(source-filename ${source} NAME)
+            get_filename_component(source-directory ${source} DIRECTORY)
             set(pmccabe_out_file ${CMAKE_CURRENT_BINARY_DIR}/static_analysis/pmccabe/${source}.pmccabe.txt)
             add_custom_command(OUTPUT ${pmccabe_out_file}
+                COMMAND mkdir -p ${CMAKE_CURRENT_BINARY_DIR}/static_analysis/pmccabe/${source-directory}
                 COMMAND ${Python3_EXECUTABLE} ./cmake/pmccabe_threshold.py ${source} > ${pmccabe_out_file}
                 DEPENDS ${source}
                 IMPLICIT_DEPENDS ${implicit_depends_lang} ${source}
