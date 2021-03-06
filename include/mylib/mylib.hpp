@@ -11,7 +11,8 @@
 
 namespace mylib {
 
-std::string SimpleLibFunction(std::string const& param = "Default");
+    std::string SimpleLibFunction(std::string const& param = "Default",
+                                  int const          br = 0);
 
 };  // namespace mylib
 
