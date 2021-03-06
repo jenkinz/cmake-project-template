@@ -25,4 +25,4 @@ std::string mylib::SimpleLibFunction(std::string const& param, int const br) {
     }
 
     return prepend + param;
-}
+}  // LCOV_EXCL_LINE
