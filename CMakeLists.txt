@@ -169,10 +169,9 @@ if(CODE_COVERAGE)
     # Note: add each test target defined above to the DEPENDENCIES list below
     setup_target_for_coverage_lcov(
         NAME ctest_coverage
-        EXECUTABLE ctest && ./my_app  # execute my_app to get coverage on main
+        EXECUTABLE ctest
         DEPENDENCIES test-mylib mylib # add any additional test targets here
-        EXCLUDE /usr/include/*
-                # app_src/main.cpp   example to exclude a project source file
+        EXCLUDE /usr/include/* app_src/main.cpp
     )
     # Note: add link dependency `gcov` to each test target defined above
     target_link_libraries(test-mylib gcov)
