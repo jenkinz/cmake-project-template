@@ -55,7 +55,7 @@ The following naming conventions are used throughout this project:
 - Library header interface files are placed in `include/<library-name>/`
   - In `#include` directives, always specify library name (e.g.
     `#include "library-name/header.h"`)
-- Application source code and headers are placed in `app_src/` (delete this
+- Application source code and headers are placed in `app-src/` (delete this
   folder when project is library-only)
 - Source code file names are all lowercase, separated by underscores (e.g.
   `my_file.h` or `my_impl.c`)

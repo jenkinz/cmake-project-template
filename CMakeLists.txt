@@ -107,12 +107,12 @@ endif(CMAKE_CXX_CLANG_TIDY)
 # Link each target with other targets or add options, etc.
 
 # Adding something we can run - Output name matches target name
-add_executable(myapp app_src/main.cpp)
+add_executable(myapp app-src/main.cpp)
 target_compile_features(myapp PUBLIC cxx_std_11)
 set_target_properties(myapp PROPERTIES CXX_EXTENSIONS OFF)
 target_include_directories(myapp PUBLIC
                         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-                        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/app_src)
+                        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/app-src)
 if(CODE_COVERAGE)
     target_compile_options(myapp PRIVATE -fprofile-arcs -ftest-coverage
                                          -fprofile-abs-path)
@@ -171,7 +171,7 @@ if(CODE_COVERAGE)
         NAME ctest_coverage
         EXECUTABLE ctest
         DEPENDENCIES test-mylib mylib # add any additional test targets here
-        EXCLUDE /usr/include/* app_src/main.cpp
+        EXCLUDE /usr/include/* app-src/main.cpp
     )
     # Note: add link dependency `gcov` to each test target defined above
     target_link_libraries(test-mylib gcov)
