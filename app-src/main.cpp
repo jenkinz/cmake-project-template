@@ -8,7 +8,7 @@
 #include <iostream>
 
 #include "mylib/mylib.hpp"
-#include "mylib/version.h"
+#include "version/version.h"
 
 int main() {
     std::cout << "Version " << VERSION << std::endl;
