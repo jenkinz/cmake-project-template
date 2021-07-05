@@ -81,5 +81,14 @@
         "variant": "cpp",
         "vector": "cpp"
     },
-    "editor.formatOnSave": true
+    "editor.rulers": [
+        80
+    ],
+    "editor.formatOnSave": true,
+    "cpplint.excludes": [
+        "/usr/local/**",
+        "extern/**",
+        "src/libs/**",
+        "src/afat_defs/**"
+    ]
 }
