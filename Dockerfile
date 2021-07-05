@@ -10,7 +10,7 @@ FROM ubuntu:focal
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y build-essential \
     lsb-release wget software-properties-common gnupg ccache doxygen gdb git \
-    graphviz iwyu libssl-dev lcov net-tools ninja-build pmccabe
+    graphviz iwyu libssl-dev lcov net-tools ninja-build pmccabe python3-pip
 RUN pip3 install cpplint
 # RUN service service rsyslog restart  # run this manually if setting up dev
 
