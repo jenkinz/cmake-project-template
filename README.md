@@ -2,8 +2,8 @@
 
 `main` branch: [![pipeline status](http://dev.sandel.local/toolchain/cmake-project-template/badges/main/pipeline.svg)](http://dev.sandel.local/toolchain/cmake-project-template/-/commits/main) [![coverage report](http://dev.sandel.local/toolchain/cmake-project-template/badges/main/coverage.svg)](http://dev.sandel.local/toolchain/cmake-project-template/-/commits/main)
 
-This is a template project for a C/C++ library and/or application utilizing
-modern CMake best practices. It includes support for the following:
+This is a template project for a Linux C/C++ library and/or application. It
+includes support for the following:
 
 - CMake build configurations
 - Formatting of source code for standards compliance with `clang-format`
@@ -111,7 +111,13 @@ clang-tidy and clang-format. The default packages in Debian are too old (at
 version 7 as of this writing) so a newer version is installed below.
 
     $ sudo apt update
-    $ sudo apt install build-essential doxygen graphviz gdb git ccache cmake iwyu lcov ninja-build pmccabe python3-pip
+    $ sudo apt install build-essential doxygen graphviz gdb git ccache iwyu lcov ninja-build pmccabe python3-pip
+    $ wget https://github.com/Kitware/CMake/releases/download/v3.19.7/cmake-3.19.7.tar.gz
+    $ tar -xzf cmake-3.19.7.tar.gz
+    $ ./bootstrap -- -DCMAKE_BUILD_TYPE:STRING=Release
+    $ make
+    $ make install
+    $ rm -rf ./cmake-3.19.7*
     $ wget https://apt.llvm.org/llvm.sh
     $ chmod +x llvm.sh
     $ sudo ./llvm.sh 11
