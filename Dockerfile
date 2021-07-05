@@ -7,8 +7,8 @@ FROM ubuntu:focal
 # Install required packages
 # ...add all required build toolchain dependencies for the project to this list
 # ...add additional RUN commands as necessary for any custom install scripts
-RUN apt-get update
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y build-essential \
+RUN apt-get update && \
+    DEBIAN_FRONTEND="noninteractive" apt-get install -y build-essential \
     lsb-release wget software-properties-common gnupg ccache doxygen gdb git \
     graphviz iwyu libssl-dev lcov net-tools ninja-build pmccabe
 RUN pip3 install cpplint
