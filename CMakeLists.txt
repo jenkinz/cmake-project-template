@@ -18,8 +18,8 @@ project(ProjectName
 # Auto-generate a version header (this requires you set VERSION in the project()
 # above)
 configure_file (
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/mylib/version.h.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/mylib/version.h"
+    "cmake/version.h.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/version/version.h"
 )
 
 # If you set any CMAKE_ variables, that can go here. (But usually don't do this,
@@ -90,6 +90,7 @@ endif(CCACHE_PROGRAM)
 add_library(mylib STATIC src/mylib.cpp include/mylib/mylib.hpp)
 add_library(mylib::mylib ALIAS mylib)
 target_include_directories(mylib PUBLIC
+                        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                         $<INSTALL_INTERFACE:${INCLUDE_DEST}>)
 target_compile_features(mylib PUBLIC cxx_std_11) # or cxx_std_14, or cxx_std_17

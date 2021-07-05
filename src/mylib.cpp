@@ -6,6 +6,7 @@
 
 #include "mylib/mylib.hpp"
 #include <iostream>
+#include "version/version.h"
 
 /// @brief Return a string.
 ///
@@ -17,6 +18,8 @@
 ///
 std::string mylib::SimpleLibFunction(std::string const& param, int const br) {
     std::string const prepend = "Compiled in library, param = ";
+
+    std::cout << "Version " << VERSION << std::endl;
 
     if (br) {
         std::cout << "Made a branch" << std::endl;
