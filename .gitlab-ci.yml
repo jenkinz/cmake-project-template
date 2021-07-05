@@ -22,14 +22,13 @@ build:
     - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE cmake --build .
   after_script:
     - sudo chown -R gitlab-runner:gitlab-runner build  # by default, docker-written artifacts are owned by root
-    - sudo chown -R gitlab-runner:gitlab-runner cmake
   artifacts:
     paths:
       - build
-      # depending on your build setup you can cache outputs to reduce the build time
+      # depending on your build setup it's most likely a good idea to cache outputs to reduce the build time
       # cache:
       #   paths:
-      #     - build
+      #     - "*.o"
 
 # run tests using the binary built before
 test:
@@ -41,7 +40,6 @@ test:
     - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE ctest
   after_script:
     - sudo chown -R gitlab-runner:gitlab-runner build
-    - sudo chown -R gitlab-runner:gitlab-runner cmake
 
 coverage:
   stage: coverage
@@ -54,7 +52,6 @@ coverage:
     - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build_coverage" $DOCKER_IMAGE cmake --build . --target ctest_coverage
   after_script:
     - sudo chown -R gitlab-runner:gitlab-runner build_coverage  # by default, docker-written artifacts are owned by root
-    - sudo chown -R gitlab-runner:gitlab-runner cmake
   artifacts:
     paths:
       - build_coverage
