@@ -4,10 +4,10 @@
 /// Copyright 2021 MyCo Inc.
 /// ----------------------------------------------------------------------------
 
-#include "test_mylib.hpp"
+#include "test_mylib.h"
 #include <gtest/gtest.h>
 #include <string>
-#include "mylib/mylib.hpp"
+#include "mylib/mylib.h"
 
 std::string const LibTest::kExpectedStringPrefix_ =
     "Compiled in library, param = ";

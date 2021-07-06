@@ -87,7 +87,7 @@ endif(CCACHE_PROGRAM)
 # Adding a library target Including header files here helps IDEs but is not
 # required. Output libname matches target name, with the usual extensions on
 # your system
-add_library(mylib STATIC src/mylib.cpp include/mylib/mylib.hpp)
+add_library(mylib STATIC src/mylib.cpp)
 add_library(mylib::mylib ALIAS mylib)
 target_include_directories(mylib PUBLIC
                         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>

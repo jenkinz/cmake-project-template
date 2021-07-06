@@ -16,7 +16,7 @@
 /// @see mylib::SimpleLibFunction
 ///
 class LibTest : public ::testing::Test {
-  protected:
+ protected:
     // void SetUp() override {}
 
     // void TearDown() override {}

@@ -4,7 +4,7 @@
 /// Copyright 2021 Sandel Inc.
 /// ----------------------------------------------------------------------------
 
-#include "mylib/mylib.hpp"
+#include "mylib/mylib.h"
 #include <iostream>
 #include "version/version.h"
 

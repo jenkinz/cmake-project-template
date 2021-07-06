@@ -7,7 +7,7 @@
 // #include <cstdlib>
 #include <iostream>
 
-#include "mylib/mylib.hpp"
+#include "mylib/mylib.h"
 #include "version/version.h"
 
 int main() {
