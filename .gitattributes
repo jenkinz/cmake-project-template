@@ -1,0 +1,95 @@
+# Default all text file line endings to LF
+* text eol=lf
+
+#sources
+*.c text
+*.cc text
+*.cxx text
+*.cpp text
+*.c++ text
+*.hpp text
+*.h text
+*.h++ text
+*.hh text
+*.s text
+*.S text
+*.asm text
+*.arm text
+*.html text
+*.js text
+*.sh text
+*.py text
+CMakeLists.txt text
+Makefile text
+*.cmake text
+*.make text
+*.mak text
+*.mk text
+*.inc text
+*.vcp text
+*.lnt text
+*.md text
+
+# Map file extensions to git filters
+#*.h filter=rcs-keywords
+#*.c filter=rcs-keywords
+#*.cpp filter=rcs-keywords
+
+# Compiled Object files
+*.slo binary
+*.lo binary
+*.o binary
+*.obj binary
+
+# Precompiled Headers
+*.gch binary
+*.pch binary
+
+# Compiled Dynamic libraries
+*.so binary
+*.dylib binary
+*.dll binary
+*.DLL binary
+
+# Compiled Static libraries
+*.lai binary
+*.la binary
+*.a binary
+*.lib binary
+
+# Executables
+*.elf binary
+*.exe binary
+*.EXE binary
+*.out binary
+*.app binary
+*.mem binary
+*.bin binary
+
+# Other binaries
+*.chm binary
+*.jar binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.patch binary
+*.pdf binary
+*.PDF binary
+*.zip binary
+*.rom binary
+*.tar binary
+*.tar.gz binary
+*.tar.bz2 binary
+*elf-hexdump binary
+*.cmp binary
+*.upl binary
+*.docx binary
+*.doc binary
+*.db binary
+*.xcf binary
+*.xlsx binary
+*.xls binary
+*.pptx binary
+*.ppt binary
+*.ods binary
+*.ttf binary
