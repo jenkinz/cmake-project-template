@@ -46,7 +46,7 @@ include(cmake/pmccabe.cmake)
 # disable static analysis checks in the coverage build directory.
 option(CODE_COVERAGE "Compute code coverage using gcov and lcov" OFF)
 if(CODE_COVERAGE)
-    if (CMAKE_CXX_CLANG_TIDY)
+    if(CMAKE_CXX_CLANG_TIDY)
         message(FATAL_ERROR "Static analysis and code coverage cannot both be \
                             turned on in the same build configuration. Create a\
                             separate build directory for code coverage with \
@@ -93,23 +93,24 @@ target_include_directories(mylib PUBLIC
                         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                         $<INSTALL_INTERFACE:${INCLUDE_DEST}>)
-target_compile_features(mylib PUBLIC cxx_std_11) # or cxx_std_14, or cxx_std_17
+target_compile_features(mylib PUBLIC cxx_std_14) # or cxx_std_11, or cxx_std_17
 if(CODE_COVERAGE)
     target_compile_options(mylib PRIVATE -fprofile-arcs -ftest-coverage
                                          -fprofile-abs-path)
 endif()
-# disable this line to get -std=g++11 etc. (also disable for INTERFACE targets)
+# disable this line to get -std=g++14 etc. (also disable for INTERFACE targets)
 set_target_properties(mylib PROPERTIES CXX_EXTENSIONS OFF)
 if(CMAKE_CXX_CLANG_TIDY) # only do cyclo and pclint if static analysis enabled
     target_add_cyclomatic_complexity_checks(mylib)
-    # target_add_pclint_checks(mylib)
+    target_add_pclint_checks(mylib)
 endif(CMAKE_CXX_CLANG_TIDY)
 
 # Link each target with other targets or add options, etc.
 
 # Adding something we can run - Output name matches target name
 add_executable(myapp app-src/main.cpp)
-target_compile_features(myapp PUBLIC cxx_std_11)
+target_compile_features(myapp PUBLIC cxx_std_14) # or cxx_std_11, or cxx_std_17
+# disable this line to get -std=g++14 etc. (also disable for INTERFACE targets)
 set_target_properties(myapp PROPERTIES CXX_EXTENSIONS OFF)
 target_include_directories(myapp PUBLIC
                         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>

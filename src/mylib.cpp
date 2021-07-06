@@ -1,7 +1,7 @@
-/// @file lib.cpp
+/// @file mylib.cpp
 /// @brief Lib implementation.
 ///
-/// Copyright 2021 MyCo Inc.
+/// Copyright 2021 Sandel Inc.
 /// ----------------------------------------------------------------------------
 
 #include "mylib/mylib.hpp"
@@ -16,7 +16,7 @@
 /// @section desc Description This is an optional, more detailed description for
 /// an enhanced explanation of the function and its properties.
 ///
-std::string mylib::SimpleLibFunction(std::string const& param, int const br) {
+std::string mylib::SimpleLibFunction(std::string const& param, bool const br) {
     std::string const prepend = "Compiled in library, param = ";
 
     std::cout << "Version " << VERSION << std::endl;

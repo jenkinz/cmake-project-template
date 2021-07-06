@@ -1,7 +1,7 @@
 /// @file app.cpp
 /// @brief Application entry point.
 ///
-/// Copyright 2021 MyCo Inc.
+/// Copyright 2021 Sandel Inc.
 /// ----------------------------------------------------------------------------
 
 // #include <cstdlib>

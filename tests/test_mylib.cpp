@@ -21,18 +21,19 @@ TEST_F(LibTest, DefaultInputNotEqual) {
 }
 
 TEST_F(LibTest, CustomInputEqual) {
-    EXPECT_EQ(mylib::SimpleLibFunction("Test", 1),
+    EXPECT_EQ(mylib::SimpleLibFunction("Test", true),
               kExpectedStringPrefix_ + "Test");
-    EXPECT_EQ(mylib::SimpleLibFunction("3", 0), kExpectedStringPrefix_ + "3");
-    EXPECT_EQ(mylib::SimpleLibFunction("…∑ª©æç≤≈", 1),
+    EXPECT_EQ(mylib::SimpleLibFunction("3", false),
+              kExpectedStringPrefix_ + "3");
+    EXPECT_EQ(mylib::SimpleLibFunction("…∑ª©æç≤≈", true),
               kExpectedStringPrefix_ + "…∑ª©æç≤≈");
-    EXPECT_EQ(mylib::SimpleLibFunction("", 0), kExpectedStringPrefix_);
+    EXPECT_EQ(mylib::SimpleLibFunction("", false), kExpectedStringPrefix_);
 }
 
 TEST_F(LibTest, CustomInputNotEqual) {
-    EXPECT_NE(mylib::SimpleLibFunction("Test", 1), "tseT");
-    EXPECT_NE(mylib::SimpleLibFunction("1234", 0), "5678");
-    EXPECT_NE(mylib::SimpleLibFunction("…∑ª©æç≤≈", 1), "…∑ª©æç≤");
-    EXPECT_NE(mylib::SimpleLibFunction("", 0),
+    EXPECT_NE(mylib::SimpleLibFunction("Test", true), "tseT");
+    EXPECT_NE(mylib::SimpleLibFunction("1234", false), "5678");
+    EXPECT_NE(mylib::SimpleLibFunction("…∑ª©æç≤≈", true), "…∑ª©æç≤");
+    EXPECT_NE(mylib::SimpleLibFunction("", false),
               "Compiled in library, param = d");
 }
