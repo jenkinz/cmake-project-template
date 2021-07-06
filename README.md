@@ -2,6 +2,10 @@
 
 `main` branch: [![pipeline status](http://dev.sandel.local/toolchain/cmake-project-template/badges/main/pipeline.svg)](http://dev.sandel.local/toolchain/cmake-project-template/-/commits/main) [![coverage report](http://dev.sandel.local/toolchain/cmake-project-template/badges/main/coverage.svg)](http://dev.sandel.local/toolchain/cmake-project-template/-/commits/main)
 
+[[_TOC_]]
+
+## Overview
+
 This is a template project for a Linux C/C++ library and/or application. It
 includes support for the following:
 
