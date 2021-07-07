@@ -114,7 +114,8 @@ target_compile_features(myapp PUBLIC cxx_std_14) # or cxx_std_11, or cxx_std_17
 set_target_properties(myapp PROPERTIES CXX_EXTENSIONS OFF)
 target_include_directories(myapp PUBLIC
                         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-                        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/app-src)
+                        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+                        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/app-src>)
 if(CODE_COVERAGE)
     target_compile_options(myapp PRIVATE -fprofile-arcs -ftest-coverage
                                          -fprofile-abs-path)
@@ -125,6 +126,7 @@ endif()
 target_link_libraries(myapp PRIVATE mylib)
 if(CMAKE_CXX_CLANG_TIDY) # only do cyclo and pclint if static analysis enabled
     target_add_cyclomatic_complexity_checks(myapp)
+    target_add_pclint_checks(myapp)
 endif(CMAKE_CXX_CLANG_TIDY)
 
 # Tests
