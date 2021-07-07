@@ -66,9 +66,9 @@ def pmccabe_threshold(argv):
                 err_txt = "error:"
             else:
                 err_txt = "warning:"
-            err_msg = f"{filename}:{line_num}: {err_txt} {fun_name} exceeds cyclomatic complexity limit [actual: " \
+            err_msg = f"{filename}:{line_num}: {err_txt} {fun_name} exceeds cyclomatic complexity limit (actual: " \
                       f"{str(modified_mccabe_complexity)}, " \
-                      f"limit: {str(cyclomatic_complexity_violation_threshold)}]\n"
+                      f"limit: {str(cyclomatic_complexity_violation_threshold)})\n"
             sys.stdout.write(err_msg)
             sys.stderr.write(err_msg)
             if fail_build_on_violation:

@@ -71,7 +71,7 @@ function(target_add_pclint_checks target_name)
         # all lint (including wrap-up) -- enable once initial lint
         # development/integration completed
         set(all_lint_out_file
-            ${CMAKE_CURRENT_BINARY_DIR}/static_analysis/lint/_all.lint.txt)
+            ${CMAKE_CURRENT_BINARY_DIR}/static_analysis/lint/${target_name}.lint.txt)
 
         add_custom_command(OUTPUT ${all_lint_out_file}
             COMMAND ${Python3_EXECUTABLE} ./cmake/lint.py
@@ -86,7 +86,7 @@ function(target_add_pclint_checks target_name)
                 "${all_lint_out_file}"
             DEPENDS ${source_list}
             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-            COMMENT "Lint performing static analysis"
+            COMMENT "Lint performing static analysis on ${source_list}"
             VERBATIM)
         add_custom_target(${target_name}_ALL_LINT DEPENDS ${all_lint_out_file})
         add_dependencies(${target_name} ${target_name}_ALL_LINT)
