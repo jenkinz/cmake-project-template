@@ -87,8 +87,7 @@
     "editor.formatOnSave": true,
     "cpplint.excludes": [
         "/usr/local/**",
-        "extern/**",
-        "src/libs/**",
-        "src/afat_defs/**"
-    ]
+        "extern/**"
+    ],
+    "clang-tidy.buildPath": "./build/"
 }
