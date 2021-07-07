@@ -138,6 +138,22 @@ if(PACKAGE_TESTS)
     enable_testing()
     include(GoogleTest)
     add_subdirectory(tests)
+    # check correct formatting with clang-format as a unit test case
+    # first, get all project sources to check formatting on:
+    file(GLOB_RECURSE project_sources_list
+            "${PROJECT_SOURCE_DIR}/src/*.cpp"
+            "${PROJECT_SOURCE_DIR}/src/*.cxx"
+            "${PROJECT_SOURCE_DIR}/src/*.c"
+            "${PROJECT_SOURCE_DIR}/include/*.hpp"
+            "${PROJECT_SOURCE_DIR}/include/*.h"
+            "${PROJECT_SOURCE_DIR}/app-src/*.cpp"
+            "${PROJECT_SOURCE_DIR}/app-src/*.cxx"
+            "${PROJECT_SOURCE_DIR}/app-src/*.c"
+    )
+    # --dry-run will not actually change the file, and -Werror fails the test if
+    # formatting violation found
+    add_test(NAME clang-format
+             COMMAND clang-format --dry-run --Werror ${project_sources_list})
 endif()
 
 # Installation set(CMAKE_INSTALL_MESSAGE NEVER)  # suppress verbose install
