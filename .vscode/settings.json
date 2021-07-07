@@ -79,7 +79,9 @@
         "unordered_set": "cpp",
         "utility": "cpp",
         "variant": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "*.tcc": "cpp",
+        "memory_resource": "cpp"
     },
     "editor.rulers": [
         80
