@@ -4,8 +4,7 @@
 stages:
   - build
   - test
-  - static_analysis
-  - coverage
+  - quality_metrics
 
 variables:
   DOCKER_IMAGE: "example-project-image"
@@ -47,7 +46,7 @@ test:
     - sudo chown -R gitlab-runner:gitlab-runner cmake
 
 static_analysis:
-  stage: static_analysis
+  stage: quality_metrics
   tags:
     - docker-shell  # gitlab runner must be setup as capable of building docker images from shell
   script:
@@ -63,7 +62,7 @@ static_analysis:
       - build_static_analysis
 
 coverage:
-  stage: coverage
+  stage: quality_metrics
   tags:
     - docker-shell
   script:
