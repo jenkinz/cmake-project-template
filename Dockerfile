@@ -17,10 +17,10 @@ RUN pip3 install cpplint
 # Install newer version of clang-extra tools than available from default apt
 RUN wget https://apt.llvm.org/llvm.sh
 RUN chmod +x llvm.sh
-RUN ./llvm.sh 11
-RUN apt-get install -y clang-tidy-11 clang-format-11
-RUN ln -sf $(which clang-tidy-11) /usr/local/bin/clang-tidy
-RUN ln -sf $(which clang-format-11) /usr/local/bin/clang-format
+RUN ./llvm.sh 13
+RUN apt-get install -y clang-tidy-13 clang-format-13
+RUN ln -sf $(which clang-tidy-13) /usr/local/bin/clang-tidy
+RUN ln -sf $(which clang-format-13) /usr/local/bin/clang-format
 RUN rm llvm.sh
 
 # Install newer version of CMake (3.19.7) than available from default apt

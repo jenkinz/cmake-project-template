@@ -110,7 +110,7 @@ You must then symlink the extra clang tools from the `llvm` installation:
 
 ### Debian/Ubuntu Linux Host (incl. Windows WSL Debian/Ubuntu)
 
-Note: LLVM version 11 is installed for the clang-extra tools including
+Note: LLVM version 13 is installed for the clang-extra tools including
 clang-tidy and clang-format. The default packages in Debian are too old (at
 version 7 as of this writing) so a newer version is installed below.
 
@@ -124,10 +124,10 @@ version 7 as of this writing) so a newer version is installed below.
     $ rm -rf ./cmake-3.19.7*
     $ wget https://apt.llvm.org/llvm.sh
     $ chmod +x llvm.sh
-    $ sudo ./llvm.sh 11
-    $ sudo apt install clang-tidy-11 clang-format-11
-    $ sudo ln -sf $(which clang-tidy-11) /usr/local/bin/clang-tidy
-    $ sudo ln -sf $(which clang-format-11) /usr/local/bin/clang-format
+    $ sudo ./llvm.sh 13
+    $ sudo apt install clang-tidy-13 clang-format-13
+    $ sudo ln -sf $(which clang-tidy-13) /usr/local/bin/clang-tidy
+    $ sudo ln -sf $(which clang-format-13) /usr/local/bin/clang-format
     $ sudo python3 -m pip install cpplint pre-commit
     $ pre-commit install
 
