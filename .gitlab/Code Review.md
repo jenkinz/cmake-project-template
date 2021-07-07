@@ -1,13 +1,12 @@
 # Code Review Approval Checklist
 
-## Reviewers
-
-- Enter Reviewer usernames here using @handle GitLab username syntax, one bullet
-per line
+/assign_reviewer @user1 @user2
+/assign @user
+/label code-review
 
 ## Description of Changes
 
-Enter description here...
+(Summarize the change concisely)
 
 ## Related Issues
 
