@@ -36,6 +36,7 @@ build:
 # run tests using the binary built before
 test:
   stage: test
+  needs: ["build"]
   tags:
     - docker-shell
   script:
@@ -47,6 +48,7 @@ test:
 
 static_analysis:
   stage: quality_metrics
+  needs: []
   tags:
     - docker-shell  # gitlab runner must be setup as capable of building docker images from shell
   script:
@@ -63,6 +65,7 @@ static_analysis:
 
 coverage:
   stage: quality_metrics
+  needs: []
   tags:
     - docker-shell
   script:
