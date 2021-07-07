@@ -4,11 +4,14 @@
 stages:
   - build
   - test
+  - static_analysis
   - coverage
 
 variables:
   DOCKER_IMAGE: "example-project-image"
-  CMAKE_FLAGS_BUILD: '-GNinja -DCMAKE_C_CLANG_TIDY=clang-tidy;-warnings-as-errors=* -DCMAKE_CXX_CLANG_TIDY=clang-tidy;-warnings-as-errors=*'
+  CMAKE_FLAGS_BUILD: '-GNinja'
+  CMAKE_FLAGS_STATIC_ANALYSIS: '-GNinja -DCMAKE_C_CLANG_TIDY=clang-tidy;-warnings-as-errors=* -DCMAKE_CXX_CLANG_TIDY=clang-tidy;-warnings-as-errors=*'
+  FAIL_BUILD_ON_VIOLATION: "True"  # whether to fail job on static analysis violation
   CMAKE_FLAGS_COVERAGE: "-GNinja -DCODE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Debug"
 
 build:
@@ -26,10 +29,10 @@ build:
   artifacts:
     paths:
       - build
-      # depending on your build setup it's most likely a good idea to cache outputs to reduce the build time
-      # cache:
-      #   paths:
-      #     - "*.o"
+  # depending on your build setup it's most likely a good idea to cache outputs to reduce the build time
+  cache:
+    paths:
+      - build
 
 # run tests using the binary built before
 test:
@@ -42,6 +45,22 @@ test:
   after_script:
     - sudo chown -R gitlab-runner:gitlab-runner build
     - sudo chown -R gitlab-runner:gitlab-runner cmake
+
+static_analysis:
+  stage: static_analysis
+  tags:
+    - docker-shell  # gitlab runner must be setup as capable of building docker images from shell
+  script:
+    - docker build -t $DOCKER_IMAGE .  # build image from project Dockerfile if changed
+    - mkdir -p build_static_analysis   # note the passing to the container of FAIL_BUILD_ON_VIOLATION env var below...
+    - docker run --rm -e FAIL_BUILD_ON_VIOLATION --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build_static_analysis" $DOCKER_IMAGE cmake $CMAKE_FLAGS_STATIC_ANALYSIS ..
+    - docker run --rm -e FAIL_BUILD_ON_VIOLATION --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build_static_analysis" $DOCKER_IMAGE cmake --build .
+  after_script:
+    - sudo chown -R gitlab-runner:gitlab-runner build_static_analysis  # by default, docker-written artifacts are owned by root
+    - sudo chown -R gitlab-runner:gitlab-runner cmake
+  artifacts:
+    paths:
+      - build_static_analysis
 
 coverage:
   stage: coverage
