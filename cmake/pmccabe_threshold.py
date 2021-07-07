@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 
+import os
 import subprocess
 import sys
 
 from cyclomatic_exceptions import CYCLOMATIC_COMPLEXITY_EXCEPTIONS
 
-CYCLOMATIC_COMPLEXITY_VIOLATION_THRESHOLD = 20
-FAIL_BUILD_ON_VIOLATION = False
+# can also set an environment variables with the same name, which will override
+CYCLOMATIC_COMPLEXITY_VIOLATION_THRESHOLD = 10
+FAIL_BUILD_ON_VIOLATION = "False"
 
 
 def pmccabe_threshold(argv):
@@ -23,12 +25,20 @@ def pmccabe_threshold(argv):
     analyze :return: the process exit code (-1 if a function violation is
     reported to stderr)
     """
+
+    cyclomatic_complexity_violation_threshold = os.getenv(
+        "CYCLOMATIC_COMPLEXITY_VIOLATION_THRESHOLD",
+        CYCLOMATIC_COMPLEXITY_VIOLATION_THRESHOLD)
+    fail_build_on_violation = (os.getenv(
+        "FAIL_BUILD_ON_VIOLATION", FAIL_BUILD_ON_VIOLATION)) == "True"
+
     # argv[1] is the source file to perform cyclomatic complexity analysis on
     cmd = f"pmccabe -v {argv[1]}"
     completed_process = subprocess.run(args=cmd, capture_output=True,
                                        shell=True, text=True)
 
-    print(completed_process.stdout)  # always print the pmccabe output to stdout
+    # always print the pmccabe output to stdout
+    print(completed_process.stdout)
 
     # parse the output to determine if a violation occurred
     for line in completed_process.stdout.splitlines():
@@ -45,22 +55,23 @@ def pmccabe_threshold(argv):
         end_idx = filename_function_name.find(")")
         filename = filename_function_name[0:start_idx]
         line_num = filename_function_name[(start_idx + 1):end_idx]
-        fun_name = filename_function_name[(end_idx + 1):].replace(": ", "").strip()
+        fun_name = filename_function_name[(
+            end_idx + 1):].replace(": ", "").strip()
 
         # sys.stderr.write("fun_name: " + fun_name + "\n")
 
-        if modified_mccabe_complexity > CYCLOMATIC_COMPLEXITY_VIOLATION_THRESHOLD and \
+        if modified_mccabe_complexity > cyclomatic_complexity_violation_threshold and \
                 fun_name not in CYCLOMATIC_COMPLEXITY_EXCEPTIONS:
-            if FAIL_BUILD_ON_VIOLATION:
+            if fail_build_on_violation:
                 err_txt = "error:"
             else:
                 err_txt = "warning:"
             err_msg = f"{filename}:{line_num}: {err_txt} {fun_name} exceeds cyclomatic complexity limit [actual: " \
                       f"{str(modified_mccabe_complexity)}, " \
-                      f"limit: {str(CYCLOMATIC_COMPLEXITY_VIOLATION_THRESHOLD)}]\n"
+                      f"limit: {str(cyclomatic_complexity_violation_threshold)}]\n"
             sys.stdout.write(err_msg)
             sys.stderr.write(err_msg)
-            if FAIL_BUILD_ON_VIOLATION:
+            if fail_build_on_violation:
                 return -1
 
     return completed_process.returncode

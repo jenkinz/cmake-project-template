@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
+import os
 import subprocess
 import sys
 
-FAIL_BUILD_ON_VIOLATION = False
+# can also set an environment variable with the same name, which will override
+FAIL_BUILD_ON_VIOLATION = "False"
 
 
 def lint(argv):
@@ -13,6 +15,9 @@ def lint(argv):
     underlying PC-lint executable, and the source file to analyze :return: the
     process exit code (-1 if a function violation is reported to stderr)
     """
+
+    fail_build_on_violation = (os.getenv("FAIL_BUILD_ON_VIOLATION",
+                                         FAIL_BUILD_ON_VIOLATION)) == "True"
 
     # argv[1] - the lint executable name (must be in PATH or include the
     # fully-qualified path)
@@ -82,7 +87,7 @@ def lint(argv):
     f.write(completed_process.stdout)
     f.close()
 
-    if FAIL_BUILD_ON_VIOLATION:
+    if fail_build_on_violation:
         return completed_process.returncode
     else:
         return 0
