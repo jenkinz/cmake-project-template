@@ -1,10 +1,15 @@
-#ifndef VERSION_H_
-#define VERSION_H_
+/// @file version.h
+/// @brief This file is auto-generated. Do not modify by hand.
+///
+/// Copyright 2021 Sandel Inc.
+/// ----------------------------------------------------------------------------
+#ifndef BUILD_VERSION_VERSION_H_
+#define BUILD_VERSION_VERSION_H_
 
-#define VERSION_MAJOR @PROJECT_VERSION_MAJOR @
-#define VERSION_MINOR @PROJECT_VERSION_MINOR @
-#define VERSION_PATCH @PROJECT_VERSION_PATCH @
-#define VERSION_TWEAK @PROJECT_VERSION_TWEAK @
-#define VERSION "@PROJECT_VERSION@"
+#define VERSION_MAJOR @PROJECT_VERSION_MAJOR @  // NOLINT
+#define VERSION_MINOR @PROJECT_VERSION_MINOR @  // NOLINT
+#define VERSION_PATCH @PROJECT_VERSION_PATCH @  // NOLINT
+#define VERSION_TWEAK @PROJECT_VERSION_TWEAK @  // NOLINT
+#define VERSION       "@PROJECT_VERSION@"       // NOLINT
 
-#endif  // VERSION_H_
+#endif  // BUILD_VERSION_VERSION_H_
