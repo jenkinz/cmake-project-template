@@ -60,7 +60,7 @@ function(target_add_pclint_checks target_name)
         #        DEPENDS ${source}
         #        #IMPLICIT_DEPENDS ${implicit_depends_lang} ${source}
         #        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-        #        COMMENT "Lint performing static analysis on ${source}"
+        #        COMMENT "PC-lint performing static analysis on ${source}"
         #        VERBATIM)
 
         #    set(all_lint_out_files ${all_lint_out_files} ${lint_out_file})
@@ -86,7 +86,7 @@ function(target_add_pclint_checks target_name)
                 "${all_lint_out_file}"
             DEPENDS ${source_list}
             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-            COMMENT "Lint performing static analysis on ${source_list}"
+            COMMENT "PC-lint performing static analysis on ${source_list}"
             VERBATIM)
         add_custom_target(${target_name}_ALL_LINT DEPENDS ${all_lint_out_file})
         add_dependencies(${target_name} ${target_name}_ALL_LINT)
