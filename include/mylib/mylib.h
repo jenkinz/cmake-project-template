@@ -4,8 +4,8 @@
 /// Copyright 2021 Sandel Inc.
 /// ----------------------------------------------------------------------------
 
-#ifndef MYLIB_MYLIB_HPP_
-#define MYLIB_MYLIB_HPP_
+#ifndef MYLIB_MYLIB_H_
+#define MYLIB_MYLIB_H_
 
 #include <string>
 
@@ -16,4 +16,4 @@ std::string SimpleLibFunction(std::string const& param = "Default",
 
 };  // namespace mylib
 
-#endif  // MYLIB_MYLIB_HPP_
+#endif  // MYLIB_MYLIB_H_

@@ -4,8 +4,8 @@
 /// Copyright 2021 MyCo Inc.
 /// ----------------------------------------------------------------------------
 
-#ifndef TEST_MYLIB_HPP_
-#define TEST_MYLIB_HPP_
+#ifndef TESTS_TEST_MYLIB_H_
+#define TESTS_TEST_MYLIB_H_
 
 #include <gtest/gtest.h>
 
@@ -25,4 +25,4 @@ class LibTest : public ::testing::Test {
     static std::string const kExpectedStringPrefix_;
 };
 
-#endif  // TEST_MYLIB_HPP_
+#endif  // TESTS_TEST_MYLIB_H_
