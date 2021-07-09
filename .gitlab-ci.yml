@@ -1,34 +1,42 @@
 # NOTE: customize `example-project-image` name below before deploying to a new
 # project.
 
+# NOTE: if you modify this file, be sure to build and push the new image tag to
+# the corresponding GitLab project's container registry:
+#
+#   $ docker login gitlab.sandel.com:5050
+#   $ docker build -t gitlab.sandel.com:5050/<group>/<project> .
+#   $ docker push gitlab.sandel.com:5050/<group>/<project>
+#
+image: "gitlab.sandel.com:5050/toolchain/cmake-project-template"
+
 stages:
   - build
   - test
   - quality_metrics
 
 variables:
-  DOCKER_IMAGE: "example-project-image"
   CMAKE_FLAGS_BUILD: '-GNinja'
   CMAKE_FLAGS_STATIC_ANALYSIS: '-GNinja -DCMAKE_C_CLANG_TIDY=clang-tidy;-warnings-as-errors=* -DCMAKE_CXX_CLANG_TIDY=clang-tidy;-warnings-as-errors=*'
-  FAIL_BUILD_ON_VIOLATION: "True"  # whether to fail job on static analysis violation
+  FAIL_BUILD_ON_VIOLATION: "True"  # fail job on static analysis violation
   CMAKE_FLAGS_COVERAGE: "-GNinja -DCODE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Debug"
 
 build:
   stage: build
   tags:
-    - docker-shell  # gitlab runner must be setup as capable of building docker images from shell
+    - docker  # gitlab runner instance: docker executor with 'docker' tag
   script:
-    - docker build -t $DOCKER_IMAGE .  # build image from project Dockerfile if changed
-    - mkdir -p build
-    - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE cmake $CMAKE_FLAGS_BUILD ..
-    - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE cmake --build .
+    - mkdir -p build && cd build
+    - cmake $CMAKE_FLAGS_BUILD ..
+    - cmake --build .
   after_script:
-    - sudo chown -R gitlab-runner:gitlab-runner build  # by default, docker-written artifacts are owned by root
+    # by default, docker-written artifacts are owned by root
+    - sudo chown -R gitlab-runner:gitlab-runner build
     - sudo chown -R gitlab-runner:gitlab-runner cmake
   artifacts:
     paths:
       - build
-  # depending on your build setup it's most likely a good idea to cache outputs to reduce the build time
+  # it's most likely a good idea to cache outputs to reduce the build time
   cache:
     paths:
       - build
@@ -38,10 +46,10 @@ test:
   stage: test
   needs: ["build"]
   tags:
-    - docker-shell
+    - docker
   script:
-    - docker build -t $DOCKER_IMAGE .
-    - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build" $DOCKER_IMAGE ctest
+    - cd build
+    - ctest
   after_script:
     - sudo chown -R gitlab-runner:gitlab-runner build
     - sudo chown -R gitlab-runner:gitlab-runner cmake
@@ -50,14 +58,13 @@ static_analysis:
   stage: quality_metrics
   needs: []
   tags:
-    - docker-shell  # gitlab runner must be setup as capable of building docker images from shell
+    - docker
   script:
-    - docker build -t $DOCKER_IMAGE .  # build image from project Dockerfile if changed
-    - mkdir -p build_static_analysis   # note the passing to the container of FAIL_BUILD_ON_VIOLATION env var below...
-    - docker run --rm -e FAIL_BUILD_ON_VIOLATION --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build_static_analysis" $DOCKER_IMAGE cmake $CMAKE_FLAGS_STATIC_ANALYSIS ..
-    - docker run --rm -e FAIL_BUILD_ON_VIOLATION --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build_static_analysis" $DOCKER_IMAGE cmake --build .
+    - mkdir -p build_static_analysis && cd build_static_analysis
+    - cmake $CMAKE_FLAGS_STATIC_ANALYSIS ..
+    - cmake --build .
   after_script:
-    - sudo chown -R gitlab-runner:gitlab-runner build_static_analysis  # by default, docker-written artifacts are owned by root
+    - sudo chown -R gitlab-runner:gitlab-runner build_static_analysis
     - sudo chown -R gitlab-runner:gitlab-runner cmake
   artifacts:
     paths:
@@ -67,14 +74,13 @@ coverage:
   stage: quality_metrics
   needs: []
   tags:
-    - docker-shell
+    - docker
   script:
-    - docker build -t $DOCKER_IMAGE .  # build image from project Dockerfile if changed
-    - mkdir -p build_coverage
-    - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build_coverage" $DOCKER_IMAGE cmake $CMAKE_FLAGS_COVERAGE ..
-    - docker run --rm --mount type=bind,source="$(pwd)",target=/$CI_PROJECT_NAME --workdir="/$CI_PROJECT_NAME/build_coverage" $DOCKER_IMAGE cmake --build . --target ctest_coverage
+    - mkdir -p build_coverage && cd build_coverage
+    - cmake $CMAKE_FLAGS_COVERAGE ..
+    - cmake --build . --target ctest_coverage
   after_script:
-    - sudo chown -R gitlab-runner:gitlab-runner build_coverage  # by default, docker-written artifacts are owned by root
+    - sudo chown -R gitlab-runner:gitlab-runner build_coverage
     - sudo chown -R gitlab-runner:gitlab-runner cmake
   artifacts:
     paths:
