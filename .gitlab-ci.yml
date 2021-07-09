@@ -33,10 +33,6 @@ build:
     - mkdir -p build && cd build
     - cmake $CMAKE_FLAGS_BUILD ..
     - cmake --build .
-  after_script:
-    # by default, docker-written artifacts are owned by root
-    - sudo chown -R gitlab-runner:gitlab-runner build
-    - sudo chown -R gitlab-runner:gitlab-runner cmake
   artifacts:
     paths:
       - build
@@ -54,9 +50,6 @@ test:
   script:
     - cd build
     - ctest
-  after_script:
-    - sudo chown -R gitlab-runner:gitlab-runner build
-    - sudo chown -R gitlab-runner:gitlab-runner cmake
 
 static_analysis:
   stage: quality_metrics
@@ -67,9 +60,6 @@ static_analysis:
     - mkdir -p build_static_analysis && cd build_static_analysis
     - cmake $CMAKE_FLAGS_STATIC_ANALYSIS ..
     - cmake --build .
-  after_script:
-    - sudo chown -R gitlab-runner:gitlab-runner build_static_analysis
-    - sudo chown -R gitlab-runner:gitlab-runner cmake
   artifacts:
     paths:
       - build_static_analysis
@@ -83,9 +73,6 @@ coverage:
     - mkdir -p build_coverage && cd build_coverage
     - cmake $CMAKE_FLAGS_COVERAGE ..
     - cmake --build . --target ctest_coverage
-  after_script:
-    - sudo chown -R gitlab-runner:gitlab-runner build_coverage
-    - sudo chown -R gitlab-runner:gitlab-runner cmake
   artifacts:
     paths:
       - build_coverage
