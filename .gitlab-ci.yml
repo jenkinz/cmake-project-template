@@ -7,6 +7,7 @@
 #   $ docker login gitlab.sandel.com:5050
 #   $ docker build -t gitlab.sandel.com:5050/<group>/<project> .
 #   $ docker push gitlab.sandel.com:5050/<group>/<project>
+#   $ docker logout
 #
 image: "gitlab.sandel.com:5050/toolchain/cmake-project-template"
 
