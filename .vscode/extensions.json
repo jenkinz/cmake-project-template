@@ -11,7 +11,8 @@
         "twxs.cmake",
         "xaver.clang-format",
         "notskm.clang-tidy",
-        "marklarah.pre-commit-vscode"
+        "marklarah.pre-commit-vscode",
+        "gitlab.gitlab-workflow"
     ],
     // List of extensions recommended by VS Code that should not be recommended
     // for users of this workspace.
