@@ -16,9 +16,9 @@ int main() {
     std::cout << mylib::SimpleLibFunction("Testing", true) << std::endl;
 
     // uncomment to cause static analysis violation:
-    if (true) {
-        int const x = 10 / 0;
-    }
+    // if (true) {
+    //     int const x = 10 / 0;
+    // }
 
     // uncomment to cause cyclomatic complexity violation:
     // const unsigned int kSrandSeed = 20U;
