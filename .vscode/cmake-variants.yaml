@@ -28,8 +28,8 @@ enableStaticAnalysisAndStyleChecks:
       settings:
         CMAKE_C_CLANG_TIDY: "clang-tidy"
         CMAKE_CXX_CLANG_TIDY: "clang-tidy"
-        CMAKE_C_CPPLINT: "cpplint"
-        CMAKE_CXX_CPPLINT: "cpplint"
+        CMAKE_C_CPPLINT: "cpplint;--quiet"
+        CMAKE_CXX_CPPLINT: "cpplint;--quiet"
     disable:
       short: No Static Analysis or Style Checks
 
