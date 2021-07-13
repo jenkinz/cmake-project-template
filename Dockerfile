@@ -1,6 +1,14 @@
 # ==============================================================================
-# This Dockerfile is for use by developers, or for those wishing to
-# build, debug and run the project on a local development instance.
+# This Dockerfile is for use by CI, or for those wishing to build, debug and run
+# the project on a local development instance.
+#
+# NOTE: if you modify this file, be sure to build and push the new image tag to
+# the corresponding GitLab project's container registry:
+#
+#   $ docker login gitlab.sandel.com:5050
+#   $ docker build -t gitlab.sandel.com:5050/<group>/<project> .
+#   $ docker push gitlab.sandel.com:5050/<group>/<project>
+#   $ docker logout
 # ==============================================================================
 FROM ubuntu:focal
 
