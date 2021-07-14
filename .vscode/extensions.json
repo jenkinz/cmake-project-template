@@ -10,7 +10,6 @@
         "ms-vscode.cmake-tools",
         "twxs.cmake",
         "xaver.clang-format",
-        "notskm.clang-tidy",
         "marklarah.pre-commit-vscode",
         "gitlab.gitlab-workflow"
     ],

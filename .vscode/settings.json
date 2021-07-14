@@ -91,6 +91,5 @@
         "/usr/local/**",
         "extern/**"
     ],
-    "clang-tidy.buildPath": "./build/",
     "files.trimTrailingWhitespace": true
 }
