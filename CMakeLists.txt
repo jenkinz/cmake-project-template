@@ -191,7 +191,7 @@ if(CODE_COVERAGE)
         NAME ctest_coverage
         EXECUTABLE ctest
         DEPENDENCIES test-mylib mylib # add any additional test targets here
-        EXCLUDE /usr/include/* app-src/main.cpp
+        EXCLUDE /usr/include/* extern/* app-src/main.cpp
     )
     # Note: add link dependency `gcov` to each test target defined above
     target_link_libraries(test-mylib gcov)
