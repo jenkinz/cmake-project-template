@@ -50,7 +50,7 @@ test:
     - docker
   script:
     - cd build
-    - ctest
+    - ctest --build-config Debug --test-action test --output-on-failure
 
 static_analysis:
   stage: quality_metrics
