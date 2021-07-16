@@ -33,6 +33,14 @@ set(LIB_INCLUDE_DEST "${INCLUDE_DEST}/mylib")
 set(MAIN_LIB_DEST "lib/mylib")
 set(LIB_DEST "${MAIN_LIB_DEST}")
 
+# Prevent cpplint (if enabled) from outputting message when no issues found
+if(CMAKE_C_CPPLINT)
+    set(CMAKE_C_CPPLINT "cpplint;--quiet")
+endif(CMAKE_C_CPPLINT)
+if(CMAKE_CXX_CPPLINT)
+    set(CMAKE_CXX_CPPLINT "cpplint;--quiet")
+endif(CMAKE_CXX_CPPLINT)
+
 # Find packages, other config-time commands can go here.
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(cmake/pc-lint.cmake)
