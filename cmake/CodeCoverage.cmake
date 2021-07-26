@@ -222,6 +222,9 @@ function(setup_target_for_coverage_lcov)
     set(multiValueArgs EXCLUDE EXECUTABLE EXECUTABLE_ARGS DEPENDENCIES LCOV_ARGS GENHTML_ARGS)
     cmake_parse_arguments(Coverage "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
+    set(LCOV_BRANCH_COVERAGE "")  # disable branch coverage report
+    # set(LCOV_BRANCH_COVERAGE_OPTION "--rc lcov_branch_coverage=1")  # enable branch coverage report
+
     if(NOT LCOV_PATH)
         message(FATAL_ERROR "lcov not found! Aborting...")
     endif() # NOT LCOV_PATH
@@ -261,7 +264,7 @@ function(setup_target_for_coverage_lcov)
     # Create baseline to make sure untouched files show up in the report
     set(LCOV_BASELINE_CMD
         ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} -c -i -d . -b
-        ${BASEDIR} -o ${Coverage_NAME}.base
+        ${BASEDIR} -o ${Coverage_NAME}.base ${LCOV_BRANCH_COVERAGE_OPTION}
     )
     # Run tests
     set(LCOV_EXEC_TESTS_CMD
@@ -275,17 +278,17 @@ function(setup_target_for_coverage_lcov)
     # add baseline counters
     set(LCOV_BASELINE_COUNT_CMD
         ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} -a ${Coverage_NAME}.base
-        -a ${Coverage_NAME}.capture --output-file ${Coverage_NAME}.total
+        -a ${Coverage_NAME}.capture --output-file ${Coverage_NAME}.total ${LCOV_BRANCH_COVERAGE_OPTION}
     )
     # filter collected data to final coverage report
     set(LCOV_FILTER_CMD
         ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} --remove
-        ${Coverage_NAME}.total ${LCOV_EXCLUDES} --output-file ${Coverage_NAME}.info
+        ${Coverage_NAME}.total ${LCOV_EXCLUDES} --output-file ${Coverage_NAME}.info ${LCOV_BRANCH_COVERAGE_OPTION}
     )
-    # Generate HTML output
+    # Generate HTML output (including branch coverage)
     set(LCOV_GEN_HTML_CMD
         ${GENHTML_PATH} ${GENHTML_EXTRA_ARGS} ${Coverage_GENHTML_ARGS} -o
-        ${Coverage_NAME} ${Coverage_NAME}.info
+        ${Coverage_NAME} ${Coverage_NAME}.info ${LCOV_BRANCH_COVERAGE_OPTION}
     )
 
 
