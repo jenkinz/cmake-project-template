@@ -45,6 +45,16 @@ endif(CMAKE_CXX_CPPLINT)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(cmake/pc-lint.cmake)
 include(cmake/pmccabe.cmake)
+include(FetchContent)
+
+# Fetch external dependencies
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG        release-1.11.0
+  GIT_SHALLOW    TRUE
+)
+FetchContent_MakeAvailable(googletest)
 
 # Enable/disable code coverage
 # NOTE: Code coverage and static analysis checks cannot be enabled
@@ -62,26 +72,6 @@ if(CODE_COVERAGE)
     endif(CMAKE_CXX_CLANG_TIDY)
     include(CodeCoverage)
 endif(CODE_COVERAGE)
-
-# Command to auto-update all git submodules: from
-# https://cliutils.gitlab.io/modern-cmake/chapters/basics/programs.html
-find_package(Git)
-if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
-    # Update submodules as needed
-    option(GIT_SUBMODULE "Check submodules during build" ON)
-    if(GIT_SUBMODULE)
-        message(STATUS "Submodule update")
-        execute_process(COMMAND ${GIT_EXECUTABLE}
-                                submodule update --init --recursive --remote
-                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-                        RESULT_VARIABLE GIT_SUBMOD_RESULT)
-        if(NOT GIT_SUBMOD_RESULT EQUAL "0")
-            message(FATAL_ERROR "git submodule update --init failed with $
-                                {GIT_SUBMOD_RESULT}, please checkout
-                                submodules")
-        endif(NOT GIT_SUBMOD_RESULT EQUAL "0")
-    endif(GIT_SUBMODULE)
-endif(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
 
 ## CCache - speed up recompilation by caching previous compilations
 find_program(CCACHE_PROGRAM ccache)
