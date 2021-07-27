@@ -49,24 +49,34 @@ macro(package_add_test TESTNAME)
                                 FOLDER tests
                                 CXX_CLANG_TIDY ""
                                 CXX_CPPLINT "")
-endmacro()
+endmacro(package_add_test)
 
-macro(package_add_test_with_libraries TESTNAME FILES LIBRARIES
-      TEST_WORKING_DIRECTORY)
-    add_executable(${TESTNAME} ${FILES})
-    target_link_libraries(${TESTNAME} gtest gmock gtest_main ${LIBRARIES})
-    gtest_discover_tests(${TESTNAME}
-        WORKING_DIRECTORY ${TEST_WORKING_DIRECTORY}
-        PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${TEST_WORKING_DIRECTORY}"
+macro(package_add_test_with_libraries)
+    set(oneValueArgs TESTNAME TEST_WORKING_DIRECTORY)
+    set(multiValueArgs FILES LIBRARIES)
+    cmake_parse_arguments(PATWL "" "${oneValueArgs}"
+                          "${multiValueArgs}" ${ARGN})
+    add_executable(${PATWL_TESTNAME} ${PATWL_FILES})
+    target_link_libraries(${PATWL_TESTNAME} gtest gmock gtest_main
+                          ${PATWL_LIBRARIES})
+    gtest_discover_tests(${PATWL_TESTNAME}
+        WORKING_DIRECTORY ${PATWL_TEST_WORKING_DIRECTORY}
+        PROPERTIES
+        VS_DEBUGGER_WORKING_DIRECTORY "${PATWL_TEST_WORKING_DIRECTORY}"
     )
-    set_target_properties(${TESTNAME}
+    set_target_properties(${PATWL_TESTNAME}
                             PROPERTIES
                                 FOLDER tests
                                 CXX_CLANG_TIDY ""
                                 CXX_CPPLINT "")
-endmacro()
+endmacro(package_add_test_with_libraries)
 
 # Define tests here.
-package_add_test_with_libraries(test-mylib
-                                test_mylib.cpp
-                                mylib "")
+package_add_test_with_libraries(TESTNAME
+                                    test-mylib
+                                FILES
+                                    test_mylib.cpp
+                                LIBRARIES
+                                    mylib
+                                TEST_WORKING_DIRECTORY
+                                    "")
