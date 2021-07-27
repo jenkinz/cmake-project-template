@@ -4,12 +4,35 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "CMake Build",
+            "label": "Build",
             "type": "cmake",
             "command": "build",
             "group": {
                 "kind": "build",
                 "isDefault": true
+            }
+        },
+        {
+            "label": "Run Tests",
+            "type": "shell",
+            "command": "ctest",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            }
+        },
+        {
+            "label": "Run Code Coverage",
+            "type": "shell",
+            "command": "./.vscode/run_coverage.sh",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
             }
         }
     ]
