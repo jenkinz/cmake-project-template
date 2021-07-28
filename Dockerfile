@@ -19,7 +19,7 @@ RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y build-essential curl \
     lsb-release wget software-properties-common gnupg ccache doxygen gdb git \
     graphviz iwyu libssl-dev lcov net-tools ninja-build pmccabe python3-pip
-RUN pip3 install cpplint
+RUN pip3 install cpplint pre-commit
 # RUN service service rsyslog restart  # run this manually if setting up dev
 
 # Install newer version of clang-extra tools than available from default apt
