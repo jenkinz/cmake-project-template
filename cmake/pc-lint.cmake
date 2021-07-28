@@ -81,7 +81,7 @@ function(target_add_pclint_checks target_name)
                 "${co_gcc_lnt}"
                 "${lint_stds_checks}"
                 "${lint_include_directories}"
-                "${lint_defines}"
+                # "${lint_defines}"
                 "${source_list}"
                 "${all_lint_out_file}"
             DEPENDS ${source_list}

@@ -34,11 +34,11 @@ def lint(argv):
     # argv[6] - include directories separated by ';'
     include_dirs = argv[6]
     # argv[7] = compiler defines separated by ';'
-    defines = argv[7]
+    # defines = argv[7]
     # argv[8] - the source file(s)
-    sources = argv[8]
+    sources = argv[7]
     # argv[9] - output file
-    output_file = argv[9]
+    output_file = argv[8]
 
     if unit:
         unit_opt = "-u"
@@ -52,16 +52,16 @@ def lint(argv):
             # prepend "-i" to each include dir (required for lint command)
             lint_includes.append("-i" + inc)
 
-    defs = defines.split(';')
-    lint_defines = []
-    for define in defs:
-        if len(define) > 0:
-            if "=" in define:
-                sep = define.split("=")
-                define = sep[0] + "=" + '"' + sep[1] + \
-                    '"'  # surround rvalue with quotes
+    # defs = defines.split(';')
+    # lint_defines = []
+    # for define in defs:
+        # if len(define) > 0:
+            # if "=" in define:
+            # sep = define.split("=")
+            # define = sep[0] + "=" + '"' + sep[1] + \
+            # '"'  # surround rvalue with quotes
             # prepend "-d" to each define (required for lint command)
-            lint_defines.append("-d" + define)
+            # lint_defines.append("-d" + define)
 
     sources = sources.split(';')
     lint_sources = []
@@ -72,7 +72,7 @@ def lint(argv):
 
     # note: '-frz' option is specified below to return nonzero exit status on
     # one or more PC-lint violation(s)
-    cmd = f'{lint_exe} {lint_inc} {co_gcc_lnt} {stds_lnt} options.lnt {" ".join(lint_includes)} {" ".join(lint_defines)} -frz {unit_opt} {" ".join(lint_sources)}'
+    cmd = f'{lint_exe} {lint_inc} {co_gcc_lnt} {stds_lnt} options.lnt {" ".join(lint_includes)} -frz {unit_opt} {" ".join(lint_sources)}'
     completed_process = subprocess.run(
         args=cmd, capture_output=True, shell=True, text=True)
 
