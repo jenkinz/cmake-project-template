@@ -74,6 +74,12 @@ coverage:
     - mkdir -p build_coverage && cd build_coverage
     - cmake $CMAKE_FLAGS_COVERAGE ..
     - cmake --build . --target ctest_coverage
+    # generate coverage.xml:
+    - cd ..
+    - python3 -m lcov_cobertura build_coverage/ctest_coverage.info --base-dir=./ --output=build_coverage/coverage.xml
+  coverage: '/lines[\.]+\: (\d+\.\d+)\%/'
   artifacts:
     paths:
       - build_coverage
+    reports:
+      cobertura: build_coverage/coverage.xml  # coverage report

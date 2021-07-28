@@ -99,7 +99,7 @@ leiu of `make` for slightly speedier builds.
 Assuming you have [Homebrew](https://brew.sh) installed:
 
     $ brew install ccache cmake cpplint doxygen graphviz include-what-you-use llvm pmccabe python
-    $ python3 -m pip install pre-commit
+    $ python3 -m pip install lcov_cobertura pre-commit
     $ pre-commit install
 
 You must then symlink the extra clang tools from the `llvm` installation:
@@ -128,7 +128,7 @@ version 7 as of this writing) so a newer version is installed below.
     $ sudo apt install clang-tidy-13 clang-format-13
     $ sudo ln -sf $(which clang-tidy-13) /usr/local/bin/clang-tidy
     $ sudo ln -sf $(which clang-format-13) /usr/local/bin/clang-format
-    $ sudo python3 -m pip install cpplint pre-commit
+    $ sudo python3 -m pip install cpplint lcov_cobertura pre-commit
     $ pre-commit install
 
 ### Alpine Linux Host (incl. Windows WSL Alpine)
@@ -139,8 +139,7 @@ immediately available on Alpine.
     $ su -
     # apk update
     # apk add alpine-sdk gdb git ccache cmake clang-extra-tools ninja py3-pip
-    # pip3 install cpplint
-    # pip3 install pre-commit
+    # pip3 install cpplint lcov_cobertura pre-commit
     # exit
     $ pre-commit install
 
