@@ -12,6 +12,7 @@ function(target_add_pclint_checks target_name)
     get_target_property(source_list ${target_name} SOURCES)
     get_target_property(lint_include_directories ${target_name} INCLUDE_DIRECTORIES)
     # get_target_property(lint_defines ${target_name} COMPILE_DEFINITIONS)
+    set(lint_defines "NONE")
 
     # Perform PC-Lint Plus checks and static analysis
     if(PCLP)
@@ -80,7 +81,7 @@ function(target_add_pclint_checks target_name)
                 "${co_gcc_lnt}"
                 "${lint_stds_checks}"
                 "${lint_include_directories}"
-                # "${lint_defines}"
+                "${lint_defines}"
                 "${source_list}"
                 "${all_lint_out_file}"
             DEPENDS ${source_list}
