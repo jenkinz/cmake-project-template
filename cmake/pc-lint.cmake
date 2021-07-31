@@ -73,6 +73,7 @@ function(target_add_pclint_checks target_name)
             ${CMAKE_CURRENT_BINARY_DIR}/static_analysis/lint/${target_name}.lint.txt)
 
         add_custom_command(OUTPUT ${all_lint_out_file}
+            COMMAND mkdir -p ${CMAKE_CURRENT_BINARY_DIR}/static_analysis/lint
             COMMAND ${Python3_EXECUTABLE} ./cmake/lint.py
                 "${pclp_exe}"
                 "--global"
