@@ -4,12 +4,13 @@
 # NOTE: if you modify this file, be sure to build and push the new image tag to
 # the corresponding GitLab project's container registry:
 #
-#   $ docker login gitlab.sandel.com:5050
-#   $ docker build -t gitlab.sandel.com:5050/<group>/<project> .
-#   $ docker push gitlab.sandel.com:5050/<group>/<project>
+#   $ docker login <gitlab_registry_url>
+#   $ docker build -t <gitlab_registry_url>/<group>/<project> .
+#   $ docker push <gitlab_registry_url>/<group>/<project>
 #   $ docker logout
 #
-image: "gitlab.sandel.com:5050/toolchain/cmake-project-template"
+
+# image: "<gitlab_registry_url>/toolchain/cmake-project-template"
 
 stages:
   - build
@@ -17,19 +18,19 @@ stages:
   - quality_metrics
 
 variables:
-  CMAKE_FLAGS_BUILD: '-DCMAKE_BUILD_TYPE=Debug'
+  CMAKE_FLAGS_BUILD: "-DCMAKE_BUILD_TYPE=Debug"
   CMAKE_FLAGS_STATIC_ANALYSIS: >
     -DCMAKE_C_CLANG_TIDY=clang-tidy;-warnings-as-errors=*
     -DCMAKE_CXX_CLANG_TIDY=clang-tidy;-warnings-as-errors=*
     -DCMAKE_C_CPPLINT=cpplint;--quiet
     -DCMAKE_CXX_CPPLINT=cpplint;--quiet
-  FAIL_BUILD_ON_VIOLATION: "True"  # fail job on static analysis violation
+  FAIL_BUILD_ON_VIOLATION: "True" # fail job on static analysis violation
   CMAKE_FLAGS_COVERAGE: "-DCODE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Debug"
 
 build:
   stage: build
   tags:
-    - docker  # gitlab runner instance: docker executor with 'docker' tag
+    - docker # gitlab runner instance: docker executor with 'docker' tag
   script:
     - mkdir -p build && cd build
     - cmake $CMAKE_FLAGS_BUILD ..
@@ -82,4 +83,4 @@ coverage:
     paths:
       - build_coverage
     reports:
-      cobertura: build_coverage/coverage.xml  # coverage report
+      cobertura: build_coverage/coverage.xml # coverage report

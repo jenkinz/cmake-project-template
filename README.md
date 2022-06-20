@@ -1,7 +1,5 @@
 # CMake Project Template (Linux C/C++ Application)
 
-`main` branch: [![pipeline status](https://gitlab.sandel.com/toolchain/cmake-project-template/badges/main/pipeline.svg)](https://gitlab.sandel.com/toolchain/cmake-project-template/-/commits/main) [![coverage report](https://gitlab.sandel.com/toolchain/cmake-project-template/badges/main/coverage.svg)](https://gitlab.sandel.com/toolchain/cmake-project-template/-/commits/main)
-
 [[_TOC_]]
 
 ## Overview

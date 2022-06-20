@@ -5,9 +5,9 @@
 # NOTE: if you modify this file, be sure to build and push the new image tag to
 # the corresponding GitLab project's container registry:
 #
-#   $ docker login gitlab.sandel.com:5050
-#   $ docker build -t gitlab.sandel.com:5050/<group>/<project> .
-#   $ docker push gitlab.sandel.com:5050/<group>/<project>
+#   $ docker login <gitlab_registry_url>
+#   $ docker build -t <gitlab_registry_url>/<group>/<project> .
+#   $ docker push <gitlab_registry_url>/<group>/<project>
 #   $ docker logout
 # ==============================================================================
 FROM ubuntu:focal
@@ -41,8 +41,8 @@ RUN make install
 WORKDIR /
 RUN rm -rf ./cmake-3.19.7*
 
-# Install pc-lint plus
-RUN wget https://gitlab.sandel.com/toolchain/cmake-project-template/-/wikis/uploads/735f6737d5b0dec492d7ef5cd37397e5/pclp64_linux.zip
-RUN unzip pclp64_linux.zip
-RUN chmod +x pclp64_linux
-RUN mv pclp64_linux /usr/local/bin/
+# Install pc-lint plus (TBD dependent on hosted install package URL below)
+# RUN wget https://<registry_url>/toolchain/cmake-project-template/-/wikis/uploads/735f6737d5b0dec492d7ef5cd37397e5/pclp64_linux.zip
+# RUN unzip pclp64_linux.zip
+# RUN chmod +x pclp64_linux
+# RUN mv pclp64_linux /usr/local/bin/
