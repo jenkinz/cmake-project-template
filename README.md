@@ -1,9 +1,13 @@
-# ProjectName
+# CMake Project Template (Linux C/C++ Application)
 
-`main` branch: [![pipeline status](http://dev.sandel.local/toolchain/cmake-project-template/badges/main/pipeline.svg)](http://dev.sandel.local/toolchain/cmake-project-template/-/commits/main) [![coverage report](http://dev.sandel.local/toolchain/cmake-project-template/badges/main/coverage.svg)](http://dev.sandel.local/toolchain/cmake-project-template/-/commits/main)
+`main` branch: [![pipeline status](https://gitlab.sandel.com/toolchain/cmake-project-template/badges/main/pipeline.svg)](https://gitlab.sandel.com/toolchain/cmake-project-template/-/commits/main) [![coverage report](https://gitlab.sandel.com/toolchain/cmake-project-template/badges/main/coverage.svg)](https://gitlab.sandel.com/toolchain/cmake-project-template/-/commits/main)
 
-This is a template project for a C/C++ library and/or application utilizing
-modern CMake best practices. It includes support for the following:
+[[_TOC_]]
+
+## Overview
+
+This is a template project for a Linux C/C++ library and/or application. It
+includes support for the following:
 
 - CMake build configurations
 - Formatting of source code for standards compliance with `clang-format`
@@ -95,7 +99,7 @@ leiu of `make` for slightly speedier builds.
 Assuming you have [Homebrew](https://brew.sh) installed:
 
     $ brew install ccache cmake cpplint doxygen graphviz include-what-you-use llvm pmccabe python
-    $ python3 -m pip install pre-commit
+    $ python3 -m pip install lcov_cobertura pre-commit
     $ pre-commit install
 
 You must then symlink the extra clang tools from the `llvm` installation:
@@ -106,19 +110,25 @@ You must then symlink the extra clang tools from the `llvm` installation:
 
 ### Debian/Ubuntu Linux Host (incl. Windows WSL Debian/Ubuntu)
 
-Note: LLVM version 11 is installed for the clang-extra tools including
+Note: LLVM version 13 is installed for the clang-extra tools including
 clang-tidy and clang-format. The default packages in Debian are too old (at
 version 7 as of this writing) so a newer version is installed below.
 
     $ sudo apt update
-    $ sudo apt install build-essential doxygen graphviz gdb git ccache cmake iwyu lcov ninja-build pmccabe python3-pip
+    $ sudo apt install build-essential doxygen graphviz gdb git ccache iwyu lcov ninja-build pmccabe python3-pip
+    $ wget https://github.com/Kitware/CMake/releases/download/v3.19.7/cmake-3.19.7.tar.gz
+    $ tar -xzf cmake-3.19.7.tar.gz
+    $ ./bootstrap -- -DCMAKE_BUILD_TYPE:STRING=Release
+    $ make
+    $ make install
+    $ rm -rf ./cmake-3.19.7*
     $ wget https://apt.llvm.org/llvm.sh
     $ chmod +x llvm.sh
-    $ sudo ./llvm.sh 11
-    $ sudo apt install clang-tidy-11 clang-format-11
-    $ sudo ln -sf $(which clang-tidy-11) /usr/local/bin/clang-tidy
-    $ sudo ln -sf $(which clang-format-11) /usr/local/bin/clang-format
-    $ sudo python3 -m pip install cpplint pre-commit
+    $ sudo ./llvm.sh 13
+    $ sudo apt install clang-tidy-13 clang-format-13
+    $ sudo ln -sf $(which clang-tidy-13) /usr/local/bin/clang-tidy
+    $ sudo ln -sf $(which clang-format-13) /usr/local/bin/clang-format
+    $ sudo python3 -m pip install cpplint lcov_cobertura pre-commit
     $ pre-commit install
 
 ### Alpine Linux Host (incl. Windows WSL Alpine)
@@ -129,8 +139,7 @@ immediately available on Alpine.
     $ su -
     # apk update
     # apk add alpine-sdk gdb git ccache cmake clang-extra-tools ninja py3-pip
-    # pip3 install cpplint
-    # pip3 install pre-commit
+    # pip3 install cpplint lcov_cobertura pre-commit
     # exit
     $ pre-commit install
 

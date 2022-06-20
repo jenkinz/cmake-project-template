@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
+import os
 import subprocess
 import sys
 
-FAIL_BUILD_ON_VIOLATION = False
+# can also set an environment variable with the same name, which will override
+FAIL_BUILD_ON_VIOLATION = "False"
 
 
 def lint(argv):
@@ -13,6 +15,9 @@ def lint(argv):
     underlying PC-lint executable, and the source file to analyze :return: the
     process exit code (-1 if a function violation is reported to stderr)
     """
+
+    fail_build_on_violation = (os.getenv("FAIL_BUILD_ON_VIOLATION",
+                                         FAIL_BUILD_ON_VIOLATION)) == "True"
 
     # argv[1] - the lint executable name (must be in PATH or include the
     # fully-qualified path)
@@ -44,7 +49,8 @@ def lint(argv):
     lint_includes = []
     for inc in includes:
         if len(inc) > 0:
-            lint_includes.append("-i" + inc)  # prepend "-i" to each include dir (required for lint command)
+            # prepend "-i" to each include dir (required for lint command)
+            lint_includes.append("-i" + inc)
 
     defs = defines.split(';')
     lint_defines = []
@@ -52,19 +58,23 @@ def lint(argv):
         if len(define) > 0:
             if "=" in define:
                 sep = define.split("=")
-                define = sep[0] + "=" + '"' + sep[1] + '"'  # surround rvalue with quotes
-            lint_defines.append("-d" + define)  # prepend "-d" to each define (required for lint command)
+                define = sep[0] + "=" + '"' + sep[1] + \
+                    '"'  # surround rvalue with quotes
+            # prepend "-d" to each define (required for lint command)
+            lint_defines.append("-d" + define)
 
     sources = sources.split(';')
     lint_sources = []
     for src in sources:
-        if len(src) > 0 and not src.endswith((".S", ".s", ".asm")):  # exclude assembly source files (C/C++ only)
+        # exclude assembly source files (C/C++ only)
+        if len(src) > 0 and not src.endswith((".S", ".s", ".asm")):
             lint_sources.append(src)
 
     # note: '-frz' option is specified below to return nonzero exit status on
     # one or more PC-lint violation(s)
     cmd = f'{lint_exe} {lint_inc} {co_gcc_lnt} {stds_lnt} options.lnt {" ".join(lint_includes)} {" ".join(lint_defines)} -frz {unit_opt} {" ".join(lint_sources)}'
-    completed_process = subprocess.run(args=cmd, capture_output=True, shell=True, text=True)
+    completed_process = subprocess.run(
+        args=cmd, capture_output=True, shell=True, text=True)
 
     if completed_process.returncode > 0:  # return code is violation count
         # sys.stderr.write(completed_process.stderr)  # hide banner output
@@ -77,7 +87,7 @@ def lint(argv):
     f.write(completed_process.stdout)
     f.close()
 
-    if FAIL_BUILD_ON_VIOLATION:
+    if fail_build_on_violation:
         return completed_process.returncode
     else:
         return 0

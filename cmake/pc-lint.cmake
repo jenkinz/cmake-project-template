@@ -12,7 +12,6 @@ function(target_add_pclint_checks target_name)
     get_target_property(source_list ${target_name} SOURCES)
     get_target_property(lint_include_directories ${target_name} INCLUDE_DIRECTORIES)
     get_target_property(lint_defines ${target_name} COMPILE_DEFINITIONS)
-    set(lint_defines ${core_lint_defines} ${lint_defines})
 
     # Perform PC-Lint Plus checks and static analysis
     if(PCLP)
@@ -60,7 +59,7 @@ function(target_add_pclint_checks target_name)
         #        DEPENDS ${source}
         #        #IMPLICIT_DEPENDS ${implicit_depends_lang} ${source}
         #        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-        #        COMMENT "Lint performing static analysis on ${source}"
+        #        COMMENT "PC-lint performing static analysis on ${source}"
         #        VERBATIM)
 
         #    set(all_lint_out_files ${all_lint_out_files} ${lint_out_file})
@@ -71,9 +70,10 @@ function(target_add_pclint_checks target_name)
         # all lint (including wrap-up) -- enable once initial lint
         # development/integration completed
         set(all_lint_out_file
-            ${CMAKE_CURRENT_BINARY_DIR}/static_analysis/lint/_all.lint.txt)
+            ${CMAKE_CURRENT_BINARY_DIR}/static_analysis/lint/${target_name}.lint.txt)
 
         add_custom_command(OUTPUT ${all_lint_out_file}
+            COMMAND mkdir -p ${CMAKE_CURRENT_BINARY_DIR}/static_analysis/lint
             COMMAND ${Python3_EXECUTABLE} ./cmake/lint.py
                 "${pclp_exe}"
                 "--global"
@@ -86,7 +86,7 @@ function(target_add_pclint_checks target_name)
                 "${all_lint_out_file}"
             DEPENDS ${source_list}
             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-            COMMENT "Lint performing static analysis"
+            COMMENT "PC-lint performing static analysis on ${source_list}"
             VERBATIM)
         add_custom_target(${target_name}_ALL_LINT DEPENDS ${all_lint_out_file})
         add_dependencies(${target_name} ${target_name}_ALL_LINT)

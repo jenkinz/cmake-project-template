@@ -29,6 +29,18 @@
             "cwd": "${workspaceFolder}",
             "environment": [],
             "MIMode": "gdb"
+        },
+        {
+            // This enables debugging of tests
+            "name": "gtest",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/tests/test-mylib",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "MIMode": "gdb"
         }
     ]
 }
